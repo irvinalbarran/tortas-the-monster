@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"/>
+<meta id="metaDesc" name="description" content="The Monster Dark Kitchen – Hamburguesas de terror en Coyoacán, CDMX."/>
+<meta id="metaKw" name="keywords" content="hamburguesas,dark kitchen,coyoacán,cdmx"/>
+<meta id="metaRobots" name="robots" content="index,follow"/>
+<meta id="ogTitle" property="og:title" content="The Monster – Dark Kitchen"/>
+<meta id="ogDesc" property="og:description" content="Hamburguesas de terror en Coyoacán"/>
+<meta id="ogImg" property="og:image" content=""/>
+<link id="canonical" rel="canonical" href="https://fantastic-chebakia-708272.netlify.app/"/>
+<title id="pageTitle">The Monster – Dark Kitchen | Coyoacán CDMX</title>
+<link href="https://fonts.googleapis.com/css2?family=Creepster&family=Montserrat:wght@400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --neg:#0D0D0D;--neg2:#161616;--neg3:#1F1F1F;
+  --rojo:#B3000C;--rojo2:#e0000f;
+  --amarillo:#E6C200;--verde:#7CFC00;--crema:#F5F0E1;--gris:#666;
+  --r:12px;--rs:8px;--tr:.2s ease;
+  --ab:#0e1017;--ac:#161b27;--abr:rgba(255,255,255,.1);--aa:#4f8ef7;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--neg);color:var(--crema);font-family:'Montserrat',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{cursor:pointer;font-family:'Montserrat',sans-serif;}
+input,textarea,select{font-family:'Montserrat',sans-serif;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:var(--rojo);border-radius:4px;}
+
+/* DB BAR */
+#dbBar{position:fixed;top:0;left:0;right:0;z-index:9999;height:3px;background:linear-gradient(90deg,var(--aa),var(--verde));transform:scaleX(0);transform-origin:left;transition:transform .5s,opacity .4s;pointer-events:none;}
+#dbBar.active{transform:scaleX(.7);}
+#dbBar.done{transform:scaleX(1);opacity:0;}
+
+/* SPLASH */
+#splash{position:fixed;inset:0;background:var(--neg);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .5s;}
+#splash.out{opacity:0;pointer-events:none;}
+.sp-logo{font-family:'Creepster',cursive;font-size:2.8rem;color:var(--rojo);text-shadow:0 0 30px rgba(179,0,12,.6);}
+.sp-sub{font-size:.75rem;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;}
+.sp-bar{width:180px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;}
+.sp-fill{height:100%;background:linear-gradient(90deg,var(--rojo),var(--verde));border-radius:2px;width:0%;transition:width .6s ease;}
+#spMsg{font-size:.72rem;color:rgba(255,255,255,.3);}
+
+/* DB DIAG PANEL */
+#diagPanel{display:none;position:fixed;bottom:140px;right:20px;z-index:1200;background:#0a0e1a;border:1.5px solid var(--aa);border-radius:var(--r);padding:16px;width:320px;max-height:380px;overflow-y:auto;font-family:monospace;font-size:.72rem;line-height:1.8;}
+#diagPanel.open{display:block;}
+#diagLog{color:rgba(124,252,0,.8);}
+.diag-err{color:#ff6666!important;}
+.diag-ok{color:var(--verde)!important;}
+.diag-warn{color:var(--amarillo)!important;}
+#diagClose{position:absolute;top:8px;right:10px;background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:1rem;}
+
+/* NAV */
+#siteNav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,13,13,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(179,0,12,.25);}
+.nav-wrap{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 5%;max-width:1280px;margin:0 auto;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:38px;height:38px;background:var(--rojo);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;overflow:hidden;flex-shrink:0;box-shadow:0 0 10px rgba(179,0,12,.5);}
+.logo-icon img{width:100%;height:100%;object-fit:cover;}
+.logo-name{font-family:'Creepster',cursive;font-size:1.5rem;line-height:1;white-space:nowrap;}
+.logo-name em{color:var(--amarillo);font-style:normal;}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none;}
+.nav-links a{padding:7px 12px;border-radius:var(--rs);font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:rgba(245,240,225,.7);transition:var(--tr);white-space:nowrap;}
+.nav-links a:hover{color:var(--crema);background:rgba(255,255,255,.06);}
+.nav-cta{background:var(--rojo)!important;color:var(--crema)!important;padding:8px 18px!important;border-radius:var(--rs)!important;}
+.nav-toggle{display:none;background:none;border:none;padding:8px;color:var(--crema);flex-direction:column;gap:5px;border-radius:var(--rs);}
+.nav-toggle span{display:block;width:24px;height:2px;background:currentColor;border-radius:2px;transition:var(--tr);}
+.nav-toggle[aria-expanded=true] span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-toggle[aria-expanded=true] span:nth-child(2){opacity:0;}
+.nav-toggle[aria-expanded=true] span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+#mobileMenu{display:none;position:fixed;top:60px;left:0;right:0;z-index:499;background:rgba(13,13,13,.98);border-bottom:2px solid var(--rojo);padding:12px 5% 20px;flex-direction:column;gap:4px;}
+#mobileMenu.open{display:flex;}
+#mobileMenu a{padding:13px 16px;border-radius:var(--rs);font-size:.95rem;font-weight:700;text-transform:uppercase;color:rgba(245,240,225,.75);transition:var(--tr);border-bottom:1px solid rgba(255,255,255,.05);}
+#mobileMenu a:last-of-type{border-bottom:none;}
+#mobileMenu .mob-cta{background:var(--rojo);color:var(--crema)!important;text-align:center;border-bottom:none!important;margin-top:8px;}
+
+/* HERO */
+#hero{min-height:100vh;padding:80px 5% 60px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(ellipse 60% 50% at 65% 45%,rgba(179,0,12,.13),transparent 70%),var(--neg);}
+.bat{position:absolute;font-size:1.3rem;opacity:.15;animation:batfly 7s ease-in-out infinite;pointer-events:none;}
+@keyframes batfly{0%,100%{transform:translateY(0)rotate(-5deg);}50%{transform:translateY(-16px)rotate(5deg);}}
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;max-width:1100px;margin:0 auto;width:100%;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--amarillo);color:var(--neg);font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px;}
+.hero-h1{font-family:'Creepster',cursive;font-size:clamp(3.5rem,9vw,7rem);line-height:.9;color:var(--crema);text-shadow:0 0 50px rgba(179,0,12,.5);}
+.hero-slogan{font-family:'Creepster',cursive;font-size:clamp(1.4rem,3.5vw,2.2rem);color:var(--rojo);margin:12px 0 8px;letter-spacing:.06em;}
+.hero-sub{color:var(--amarillo);font-size:.85rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:32px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--rs);font-weight:800;font-size:.9rem;letter-spacing:.05em;text-transform:uppercase;border:none;transition:var(--tr);}
+.btn-p{background:var(--rojo);color:var(--crema);}
+.btn-p:hover{background:var(--rojo2);}
+.btn-o{background:transparent;color:var(--amarillo);border:2px solid var(--amarillo);}
+.btn-o:hover{background:rgba(230,194,0,.1);}
+.hero-visual{display:flex;align-items:center;justify-content:center;font-size:clamp(8rem,18vw,13rem);filter:drop-shadow(0 0 40px rgba(179,0,12,.5));animation:pulse 3.5s ease-in-out infinite;}
+.hero-visual img{width:100%;max-width:420px;border-radius:20px;object-fit:cover;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.03);}}
+
+.section{padding:72px 5%;}
+.section-inner{max-width:1200px;margin:0 auto;}
+.section-head{text-align:center;margin-bottom:48px;}
+.section-title{font-family:'Creepster',cursive;font-size:clamp(2rem,5vw,3rem);margin-bottom:8px;}
+.section-sub{font-size:.88rem;color:rgba(245,240,225,.55);margin-top:6px;}
+.divider{width:70px;height:3px;margin:14px auto 0;border-radius:2px;background:linear-gradient(90deg,transparent,currentColor,transparent);}
+
+.cat-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;}
+.cat-tab{padding:8px 18px;border-radius:20px;border:2px solid rgba(124,252,0,.28);background:transparent;color:rgba(245,240,225,.7);font-size:.8rem;font-weight:700;text-transform:uppercase;transition:var(--tr);white-space:nowrap;min-height:40px;}
+.cat-tab.active{background:var(--rojo);border-color:var(--rojo);color:var(--crema);}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;}
+.card{background:var(--neg3);border:2px solid var(--verde);border-radius:var(--r);overflow:hidden;position:relative;transition:var(--tr);display:flex;flex-direction:column;}
+.card:hover{transform:translateY(-5px);box-shadow:0 14px 40px rgba(124,252,0,.18);}
+.card-badge{position:absolute;top:10px;right:10px;z-index:2;background:var(--amarillo);color:var(--neg);font-size:.65rem;font-weight:900;padding:3px 9px;border-radius:10px;text-transform:uppercase;}
+.card-img{width:100%;height:150px;display:flex;align-items:center;justify-content:center;font-size:4.2rem;background:radial-gradient(circle,rgba(179,0,12,.1),transparent 70%);position:relative;overflow:hidden;flex-shrink:0;}
+.card-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:36px;background:linear-gradient(transparent,var(--neg3));}
+.card-img img{width:100%;height:100%;object-fit:cover;}
+.card-body{padding:14px;display:flex;flex-direction:column;flex:1;}
+.card-name{font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:var(--crema);margin-bottom:5px;}
+.card-desc{font-size:.75rem;color:rgba(245,240,225,.52);line-height:1.55;margin-bottom:12px;flex:1;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
+.card-price{font-size:1.18rem;font-weight:900;color:var(--rojo);}
+.btn-add{background:var(--rojo);border:none;color:var(--crema);width:36px;height:36px;border-radius:50%;font-size:1.25rem;display:flex;align-items:center;justify-content:center;transition:var(--tr);}
+.btn-add:hover{background:var(--rojo2);transform:scale(1.12);}
+
+#oferta{background:var(--neg2);}
+.oferta-card{max-width:860px;margin:0 auto;border:2px solid rgba(230,194,0,.3);border-radius:20px;padding:clamp(24px,5vw,48px);text-align:center;position:relative;overflow:hidden;}
+.oferta-card::before,.oferta-card::after{content:'🦇';position:absolute;top:12px;font-size:1.6rem;opacity:.12;}
+.oferta-card::before{left:14px;}.oferta-card::after{right:14px;transform:scaleX(-1);}
+.oferta-tag{display:inline-block;background:var(--rojo);color:var(--crema);font-size:.7rem;font-weight:900;padding:4px 14px;border-radius:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;}
+.oferta-title{font-family:'Creepster',cursive;font-size:clamp(1.8rem,4.5vw,3rem);color:var(--amarillo);margin-bottom:10px;}
+.oferta-desc{font-size:.9rem;color:var(--crema);line-height:1.8;margin-bottom:20px;}
+.oferta-prices{display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:18px;flex-wrap:wrap;}
+.price-old{color:var(--gris);text-decoration:line-through;font-size:1.1rem;}
+.price-new{color:var(--rojo);font-size:2rem;font-weight:900;}
+.stars{color:var(--amarillo);font-size:1.1rem;letter-spacing:3px;}
+
+.cob-wrap{max-width:820px;margin:0 auto;}
+.cob-search{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.cob-input{flex:1;min-width:200px;background:rgba(255,255,255,.05);border:2px solid rgba(124,252,0,.28);color:var(--crema);padding:13px 16px;border-radius:var(--rs);font-size:.9rem;outline:none;transition:var(--tr);min-height:48px;}
+.cob-input:focus{border-color:var(--verde);}
+.cob-input::placeholder{color:rgba(245,240,225,.3);}
+.btn-cob{background:var(--rojo);border:none;color:var(--crema);padding:13px 22px;border-radius:var(--rs);font-weight:800;font-size:.88rem;text-transform:uppercase;transition:var(--tr);white-space:nowrap;min-height:48px;}
+.btn-cob:hover{background:var(--rojo2);}
+.cob-result{display:none;border-radius:var(--rs);padding:14px 18px;margin-bottom:18px;font-weight:700;font-size:.88rem;align-items:center;gap:12px;}
+.cob-result.dentro{display:flex;background:rgba(124,252,0,.07);border:2px solid var(--verde);color:var(--verde);}
+.cob-result.fuera{display:flex;background:rgba(179,0,12,.07);border:2px solid var(--rojo);color:#ff4444;}
+.cob-map{width:100%;height:280px;border-radius:var(--r);border:2px solid rgba(124,252,0,.2);overflow:hidden;}
+.cob-map iframe{width:100%;height:100%;border:0;filter:invert(.85) hue-rotate(180deg);}
+details summary{cursor:pointer;color:var(--amarillo);font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:8px 0;list-style:none;}
+.colonias-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;}
+.col-tag{background:rgba(124,252,0,.06);border:1px solid rgba(124,252,0,.2);color:rgba(124,252,0,.8);font-size:.7rem;padding:4px 10px;border-radius:9px;}
+.col-tag.col-fuera{background:rgba(179,0,12,.08);border-color:rgba(179,0,12,.25);color:rgba(255,100,100,.7);}
+
+footer{background:var(--neg);border-top:1px solid rgba(179,0,12,.2);padding:56px 5% 32px;}
+.footer-inner{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:40px;max-width:1200px;margin:0 auto 40px;}
+.footer-brand .logo-name{font-size:1.8rem;}
+.footer-brand p{font-size:.8rem;color:rgba(245,240,225,.45);margin-top:10px;line-height:1.75;}
+.footer-socials{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.soc-btn{width:38px;height:38px;border-radius:var(--rs);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:var(--tr);}
+.soc-btn:hover{background:rgba(179,0,12,.18);border-color:var(--rojo);}
+.footer-col h4{color:var(--rojo);font-size:.78rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.footer-col a{color:rgba(245,240,225,.45);font-size:.8rem;transition:var(--tr);}
+.footer-col a:hover{color:var(--rojo);}
+.footer-bottom{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding-top:24px;max-width:1200px;margin:0 auto;}
+.sello{display:inline-block;font-size:.76rem;color:var(--verde);font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(124,252,0,.28);padding:7px 18px;border-radius:20px;}
+.footer-copy{font-size:.7rem;color:rgba(245,240,225,.2);margin-top:8px;}
+
+#cartFab{position:fixed;bottom:24px;right:20px;z-index:490;background:var(--rojo);border:none;color:var(--crema);width:58px;height:58px;border-radius:50%;font-size:1.4rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(179,0,12,.55);transition:var(--tr);}
+#cartFab:hover{transform:scale(1.08);}
+#cartCount{position:absolute;top:-3px;right:-3px;background:var(--amarillo);color:var(--neg);min-width:22px;height:22px;padding:0 4px;border-radius:11px;font-size:.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;}
+#adminFab{position:fixed;bottom:90px;right:22px;z-index:490;background:rgba(30,30,45,.9);border:1.5px solid rgba(79,142,247,.3);color:rgba(255,255,255,.5);width:40px;height:40px;border-radius:10px;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:var(--tr);backdrop-filter:blur(8px);}
+#adminFab:hover{border-color:var(--aa);color:#fff;}
+#diagFab{position:fixed;bottom:90px;left:20px;z-index:490;background:rgba(10,14,26,.9);border:1.5px solid rgba(79,142,247,.25);color:rgba(79,142,247,.6);width:36px;height:36px;border-radius:var(--rs);font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:var(--tr);}
+#diagFab:hover{border-color:var(--aa);color:var(--aa);}
+
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:600;backdrop-filter:blur(4px);}
+.overlay.open{display:block;}
+.drawer{position:fixed;right:0;top:0;bottom:0;width:min(420px,100vw);background:var(--neg2);z-index:601;display:flex;flex-direction:column;transform:translateX(100%);transition:.3s cubic-bezier(.4,0,.2,1);}
+.drawer.open{transform:translateX(0);}
+.drawer-hd{padding:18px 20px;border-bottom:1px solid rgba(124,252,0,.15);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.drawer-title{font-family:'Creepster',cursive;font-size:1.5rem;}
+.drawer-x{background:rgba(255,255,255,.07);border:none;color:var(--crema);width:36px;height:36px;border-radius:var(--rs);font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:var(--tr);}
+.drawer-x:hover{background:rgba(255,255,255,.14);}
+.drawer-body{flex:1;overflow-y:auto;padding:14px 20px;}
+.cart-empty{text-align:center;padding:48px 20px;color:rgba(245,240,225,.35);}
+.cart-empty-icon{font-size:3rem;margin-bottom:12px;}
+.cart-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.ci-img{width:52px;height:52px;border-radius:var(--rs);background:var(--neg3);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;overflow:hidden;}
+.ci-img img{width:100%;height:100%;object-fit:cover;}
+.ci-info{flex:1;min-width:0;}
+.ci-name{font-size:.86rem;font-weight:700;color:var(--crema);margin-bottom:2px;}
+.ci-price{font-size:.82rem;color:var(--rojo);font-weight:700;}
+.ci-qty{display:flex;align-items:center;gap:10px;margin-top:7px;}
+.qty-btn{background:rgba(179,0,12,.15);border:1px solid rgba(179,0,12,.4);color:var(--crema);width:28px;height:28px;border-radius:50%;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:var(--tr);}
+.qty-btn:hover{background:var(--rojo);}
+.qty-n{font-size:.88rem;font-weight:700;min-width:20px;text-align:center;}
+.drawer-ft{padding:16px 20px;border-top:1px solid rgba(124,252,0,.15);flex-shrink:0;background:var(--neg2);}
+.total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.total-label{font-size:.88rem;color:rgba(245,240,225,.55);}
+.total-val{font-size:1.4rem;font-weight:900;color:var(--amarillo);}
+.delivery-opts{display:none;gap:10px;margin-bottom:14px;}
+.delivery-opts.show{display:grid;grid-template-columns:1fr 1fr;}
+.d-opt{border:2px solid rgba(124,252,0,.22);border-radius:var(--rs);padding:12px 10px;text-align:center;cursor:pointer;transition:var(--tr);background:transparent;color:var(--crema);}
+.d-opt.active,.d-opt:hover{border-color:var(--verde);background:rgba(124,252,0,.07);}
+.d-opt-icon{font-size:1.4rem;margin-bottom:4px;}
+.d-opt-label{font-size:.75rem;font-weight:700;display:block;}
+.d-opt-sub{font-size:.65rem;color:rgba(245,240,225,.4);}
+.chk-form{display:none;flex-direction:column;gap:10px;margin-bottom:12px;}
+.chk-form.show{display:flex;}
+.f-group{display:flex;flex-direction:column;gap:4px;}
+.f-label{font-size:.68rem;font-weight:700;color:var(--amarillo);letter-spacing:.06em;text-transform:uppercase;}
+.f-input{background:rgba(255,255,255,.05);border:1.5px solid rgba(124,252,0,.22);color:var(--crema);padding:10px 13px;border-radius:var(--rs);font-size:.85rem;outline:none;transition:var(--tr);min-height:44px;width:100%;}
+.f-input:focus{border-color:var(--verde);}
+.f-input::placeholder{color:rgba(245,240,225,.28);}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.cob-warn{display:none;background:rgba(179,0,12,.1);border:1px solid var(--rojo);color:#ff6666;border-radius:var(--rs);padding:9px 12px;font-size:.76rem;margin-bottom:8px;}
+.cob-warn.show{display:block;}
+.cob-dist{display:none;background:rgba(124,252,0,.07);border:1px solid var(--verde);color:var(--verde);border-radius:var(--rs);padding:9px 12px;font-size:.76rem;margin-bottom:8px;}
+.cob-dist.show{display:block;}
+.btn-chk-gps{width:100%;padding:10px;background:rgba(79,142,247,.1);border:2px solid rgba(79,142,247,.3);color:#8ab8ff;border-radius:var(--rs);font-size:.82rem;font-weight:700;cursor:pointer;transition:var(--tr);margin-bottom:8px;}
+.btn-chk-gps:hover{background:rgba(79,142,247,.2);border-color:rgba(79,142,247,.5);}
+.btn-chk-gps:disabled{opacity:.4;pointer-events:none;}
+.btn-chk-data{width:100%;padding:12px;background:transparent;border:2px solid var(--verde);color:var(--verde);border-radius:var(--rs);font-size:.85rem;font-weight:800;transition:var(--tr);margin-bottom:8px;}
+.btn-chk-data:hover{background:rgba(124,252,0,.08);}
+.btn-chk-send{width:100%;padding:13px;background:var(--rojo);border:none;color:var(--crema);border-radius:var(--rs);font-size:.95rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;transition:var(--tr);}
+.btn-chk-send:hover{background:var(--rojo2);}
+.btn-chk-mp{width:100%;padding:13px;background:#00b5be;border:none;color:#fff;border-radius:var(--rs);font-size:.95rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;transition:var(--tr);margin-bottom:8px;}
+.btn-chk-mp:hover{background:#009a9a;}
+.btn-chk-mp:disabled{opacity:.5;pointer-events:none;}
+.order-confirm{position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px;}
+.order-confirm.open{display:flex;}
+.oc-card{background:var(--neg2);border:1px solid var(--verde);border-radius:var(--rs);max-width:460px;width:100%;padding:32px;text-align:center;}
+.oc-icon{font-size:3rem;margin-bottom:12px;}
+.oc-title{font-family:'Creepster',cursive;font-size:1.8rem;color:var(--verde);margin-bottom:4px;}
+.oc-sub{font-size:.85rem;color:rgba(245,240,225,.55);margin-bottom:20px;}
+.oc-number{font-size:2.2rem;font-weight:900;color:var(--amarillo);margin-bottom:8px;}
+.oc-detail{font-size:.82rem;color:rgba(245,240,225,.6);margin-bottom:4px;line-height:1.5;}
+.oc-btn{display:inline-block;margin-top:20px;padding:12px 28px;background:var(--verde);color:var(--neg);border-radius:var(--rs);font-weight:800;text-decoration:none;transition:var(--tr);border:none;cursor:pointer;}
+.oc-btn:hover{background:#9cff1e;}
+.oc-btn-sec{display:inline-block;margin-top:12px;margin-left:8px;padding:12px 28px;background:transparent;border:2px solid rgba(245,240,225,.2);color:var(--crema);border-radius:var(--rs);font-weight:700;text-decoration:none;transition:var(--tr);cursor:pointer;}
+.oc-btn-sec:hover{border-color:var(--crema);}
+
+/* LOGIN */
+#loginModal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.88);backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:16px;}
+#loginModal.open{display:flex;}
+.login-box{background:var(--ac);border:1px solid var(--abr);border-radius:18px;width:min(400px,100%);padding:36px 30px;}
+.login-icon{text-align:center;font-size:2.8rem;margin-bottom:8px;}
+.login-title{font-family:'Creepster',cursive;font-size:1.8rem;color:var(--rojo);text-align:center;}
+.login-sub{font-size:.74rem;color:rgba(255,255,255,.3);text-align:center;letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px;}
+.login-err{display:none;background:rgba(179,0,12,.12);border:1px solid var(--rojo);color:#ff6666;border-radius:var(--rs);padding:10px 14px;font-size:.79rem;font-weight:700;margin-bottom:14px;text-align:center;}
+.l-field{margin-bottom:14px;}
+.l-label{font-size:.69rem;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:6px;}
+.l-input{width:100%;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);color:#fff;padding:11px 14px;border-radius:var(--rs);font-size:.9rem;outline:none;transition:var(--tr);}
+.l-input:focus{border-color:var(--aa);}
+.l-pass-wrap{position:relative;}
+.l-pass-wrap .l-input{padding-right:44px;}
+.eye-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.3);font-size:1.1rem;padding:4px;}
+.lock-msg{text-align:center;font-size:.75rem;color:rgba(230,194,0,.7);margin-top:12px;display:none;}
+.btn-login{width:100%;padding:13px;background:var(--rojo);border:none;color:#fff;border-radius:var(--rs);font-weight:900;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;transition:var(--tr);margin-bottom:8px;}
+.btn-login:hover{background:var(--rojo2);}
+.btn-cancel{width:100%;padding:9px;background:transparent;border:none;color:rgba(255,255,255,.3);font-size:.78rem;}
+
+#chgPwModal{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:16px;}
+#chgPwModal.open{display:flex;}
+.pw-box{background:var(--ac);border:1px solid var(--abr);border-radius:16px;width:min(380px,100%);padding:28px;}
+.pw-title{font-family:'Creepster',cursive;font-size:1.4rem;color:var(--amarillo);margin-bottom:4px;}
+.pw-sub{font-size:.74rem;color:rgba(255,255,255,.3);margin-bottom:20px;}
+.pw-err{display:none;background:rgba(179,0,12,.1);border:1px solid var(--rojo);color:#ff6666;border-radius:var(--rs);padding:9px 12px;font-size:.78rem;font-weight:700;margin-bottom:12px;}
+.pw-btns{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;}
+
+/* ADMIN */
+#adminPanel{display:none;position:fixed;inset:0;z-index:1000;background:var(--ab);}
+#adminPanel.open{display:flex;flex-direction:row;}
+.adm-sidebar{width:220px;flex-shrink:0;background:#090c13;border-right:1px solid var(--abr);display:flex;flex-direction:column;overflow-y:auto;}
+.adm-sidebar-logo{padding:16px;border-bottom:1px solid var(--abr);display:flex;align-items:center;gap:10px;}
+.adm-sidebar-logo span{font-family:'Creepster',cursive;font-size:1.2rem;color:var(--rojo);}
+.adm-sidebar-logo small{font-size:.63rem;color:rgba(255,255,255,.3);display:block;}
+.adm-nav{padding:10px 0;flex:1;}
+.adm-ni{display:flex;align-items:center;gap:10px;padding:11px 16px;cursor:pointer;font-size:.81rem;font-weight:600;color:rgba(255,255,255,.45);transition:var(--tr);border-left:3px solid transparent;}
+.adm-ni:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.04);}
+.adm-ni.active{color:#fff;background:rgba(79,142,247,.1);border-left-color:var(--aa);}
+.adm-ni .i{font-size:1rem;width:20px;text-align:center;flex-shrink:0;}
+.adm-sidebar-ft{padding:12px;border-top:1px solid var(--abr);display:flex;flex-direction:column;gap:7px;}
+.adm-main{flex:1;overflow-y:auto;display:flex;flex-direction:column;}
+.adm-topbar{display:none;background:#090c13;border-bottom:1px solid var(--abr);padding:0 16px;height:54px;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:10;}
+.adm-topbar.show{display:flex;}
+.adm-menu-btn{background:rgba(255,255,255,.06);border:1px solid var(--abr);color:rgba(255,255,255,.6);padding:8px 12px;border-radius:var(--rs);font-size:.8rem;font-weight:700;display:flex;align-items:center;gap:6px;}
+#admMobNav{display:none;position:fixed;top:54px;left:0;right:0;bottom:0;background:#090c13;z-index:1001;overflow-y:auto;padding:8px 0;}
+#admMobNav.open{display:block;}
+.adm-main-content{flex:1;padding:24px;}
+.adm-sec{display:none;}
+.adm-sec.active{display:block;}
+.adm-h{font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:4px;}
+.adm-sub{font-size:.77rem;color:rgba(255,255,255,.38);margin-bottom:22px;}
+.adm-card{background:var(--ac);border:1px solid var(--abr);border-radius:var(--r);padding:20px;margin-bottom:18px;}
+.adm-card-t{font-size:.78rem;font-weight:800;color:rgba(255,255,255,.6);letter-spacing:.07em;text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--abr);}
+.adm-f{margin-bottom:14px;}
+.adm-lbl{font-size:.69rem;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.07em;text-transform:uppercase;display:block;margin-bottom:5px;}
+.adm-inp,.adm-ta,.adm-sel{width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--abr);color:#fff;padding:10px 13px;border-radius:var(--rs);font-size:.85rem;outline:none;transition:var(--tr);}
+.adm-inp:focus,.adm-ta:focus,.adm-sel:focus{border-color:var(--aa);}
+.adm-inp::placeholder,.adm-ta::placeholder{color:rgba(255,255,255,.2);}
+.adm-ta{resize:vertical;min-height:78px;}
+.adm-sel option{background:#1c2030;}
+.adm-row{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.adm-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.adm-btn{padding:9px 18px;border-radius:var(--rs);font-weight:700;font-size:.8rem;border:none;font-family:'Montserrat',sans-serif;transition:var(--tr);display:inline-flex;align-items:center;gap:6px;cursor:pointer;}
+.adm-btn.primary{background:var(--aa);color:#fff;}.adm-btn.primary:hover{background:#3a7de8;}
+.adm-btn.danger{background:rgba(179,0,12,.15);color:#ff6666;border:1px solid rgba(179,0,12,.4);}.adm-btn.danger:hover{background:var(--rojo);color:#fff;}
+.adm-btn.success{background:rgba(124,252,0,.1);color:var(--verde);border:1px solid rgba(124,252,0,.35);}.adm-btn.success:hover{background:var(--verde);color:#000;}
+.adm-btn.ghost{background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);border:1px solid var(--abr);}.adm-btn.ghost:hover{background:rgba(255,255,255,.1);color:#fff;}
+.adm-btn.sm{padding:6px 12px;font-size:.74rem;}
+.adm-btn.full{width:100%;justify-content:center;}
+.prod-list{display:flex;flex-direction:column;gap:9px;}
+.prod-row{background:rgba(255,255,255,.03);border:1px solid var(--abr);border-radius:var(--rs);padding:12px 14px;display:flex;align-items:center;gap:12px;transition:var(--tr);flex-wrap:wrap;}
+.prod-row:hover{border-color:rgba(79,142,247,.3);}
+.pr-img{width:44px;height:44px;font-size:1.9rem;text-align:center;line-height:44px;flex-shrink:0;overflow:hidden;border-radius:var(--rs);}
+.pr-img img{width:44px;height:44px;object-fit:cover;border-radius:var(--rs);}
+.pr-info{flex:1;min-width:120px;}.pr-info strong{font-size:.86rem;color:#fff;display:block;}.pr-info span{font-size:.73rem;color:rgba(255,255,255,.38);}
+.pr-price{color:var(--rojo);font-weight:800;font-size:.92rem;margin:0 8px;white-space:nowrap;}
+.toggle{width:40px;height:22px;border-radius:11px;background:rgba(255,255,255,.1);border:none;position:relative;cursor:pointer;flex-shrink:0;transition:.2s;}
+.toggle.on{background:rgba(124,252,0,.3);}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.2s;}
+.toggle.on::after{left:21px;background:var(--verde);}
+.img-up{width:100%;height:110px;background:rgba(255,255,255,.04);border:2px dashed var(--abr);border-radius:var(--rs);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--tr);overflow:hidden;position:relative;}
+.img-up:hover{border-color:var(--aa);}
+.img-up img{width:100%;height:100%;object-fit:cover;}
+.img-up .ph{text-align:center;color:rgba(255,255,255,.28);font-size:.75rem;pointer-events:none;}
+.img-up input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.adm-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px);}
+.adm-modal-bg.open{display:flex;}
+.adm-modal{background:var(--ac);border:1px solid var(--abr);border-radius:14px;width:min(520px,100%);max-height:92vh;overflow-y:auto;padding:22px;}
+.adm-modal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.adm-modal-title{font-size:.98rem;font-weight:800;color:#fff;}
+.adm-modal-x{background:none;border:none;color:rgba(255,255,255,.4);font-size:1.3rem;cursor:pointer;padding:4px 8px;}
+.adm-modal-ft{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--abr);}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:13px;margin-bottom:22px;}
+.stat-card{background:var(--ac);border:1px solid var(--abr);border-radius:var(--r);padding:16px;text-align:center;}
+.stat-n{font-size:2rem;font-weight:900;color:var(--aa);}
+.stat-lbl{font-size:.69rem;color:rgba(255,255,255,.35);margin-top:3px;text-transform:uppercase;letter-spacing:.06em;}
+.color-row{display:flex;align-items:center;gap:10px;}
+.color-row .adm-inp{width:76px;padding:5px;height:36px;cursor:pointer;flex-shrink:0;}
+.color-hex{font-size:.73rem;color:rgba(255,255,255,.4);}
+.soc-row{display:flex;gap:8px;align-items:center;margin-bottom:9px;flex-wrap:wrap;}
+.chk-row{display:flex;align-items:center;gap:8px;margin-top:8px;}
+.chk-row input{accent-color:var(--aa);width:16px;height:16px;cursor:pointer;}
+.chk-row label{font-size:.78rem;color:rgba(255,255,255,.5);cursor:pointer;}
+.db-badge{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;color:rgba(255,255,255,.4);padding:5px 10px;border-radius:var(--rs);background:rgba(255,255,255,.04);border:1px solid var(--abr);}
+.db-dot{width:8px;height:8px;border-radius:50%;background:var(--gris);transition:.3s;}
+.db-dot.ok{background:var(--verde);box-shadow:0 0 6px var(--verde);}
+.db-dot.sync{background:var(--amarillo);animation:dbpulse .7s infinite alternate;}
+.db-dot.err{background:#ff4444;}
+@keyframes dbpulse{from{opacity:.3;}to{opacity:1;}}
+.seo-score{display:flex;align-items:center;gap:16px;padding:16px;background:rgba(255,255,255,.03);border-radius:var(--r);margin-bottom:18px;}
+.seo-circle{width:70px;height:70px;border-radius:50%;border:4px solid var(--verde);display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:900;color:var(--verde);flex-shrink:0;}
+.seo-kw-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;}
+.seo-kw{display:flex;align-items:center;gap:6px;background:rgba(79,142,247,.12);border:1px solid rgba(79,142,247,.3);color:#a8c7f8;font-size:.75rem;padding:4px 10px;border-radius:9px;}
+.seo-kw button{background:none;border:none;color:rgba(168,199,248,.6);cursor:pointer;font-size:.85rem;line-height:1;}
+.sitemap-out{background:#0a0d14;border:1px solid var(--abr);border-radius:var(--rs);padding:14px;font-family:monospace;font-size:.72rem;color:rgba(124,252,0,.8);max-height:200px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;margin-top:10px;}
+.copy-btn{background:rgba(79,142,247,.15);border:1px solid rgba(79,142,247,.3);color:var(--aa);padding:6px 14px;border-radius:var(--rs);font-size:.75rem;font-weight:700;cursor:pointer;}
+
+.toast{position:fixed;bottom:88px;right:20px;z-index:1500;background:var(--neg3);border:2px solid var(--verde);color:var(--crema);padding:11px 18px;border-radius:var(--r);font-size:.82rem;font-weight:700;transform:translateY(70px);opacity:0;transition:.28s;max-width:270px;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+.adm-toast{position:fixed;bottom:26px;right:26px;z-index:3000;background:#1a2230;border:1.5px solid var(--verde);color:var(--verde);padding:11px 18px;border-radius:var(--r);font-size:.82rem;font-weight:700;transform:translateY(60px);opacity:0;transition:.28s;pointer-events:none;}
+.adm-toast.show{transform:translateY(0);opacity:1;}
+
+/* USER AUTH */
+
+#userPanel{display:none;position:fixed;top:0;right:0;bottom:0;z-index:900;background:var(--ab);border-left:1px solid var(--abr);width:440px;max-width:100%;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,.4);overflow:hidden;}
+#userPanel.open{display:flex;}
+#userPanel .up-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--abr);flex-shrink:0;}
+#userPanel .up-header h3{font-size:.95rem;font-weight:400;color:var(--crema);margin:0;}
+#userPanel .up-close{background:rgba(255,255,255,.06);border:none;color:var(--crema);width:32px;height:32px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--tr);}
+#userPanel .up-close:hover{background:rgba(179,0,12,.25);}
+#userPanel .up-body{flex:1;overflow-y:auto;padding:20px;}
+.user-tabs{display:flex;gap:0;margin-bottom:18px;border-bottom:2px solid rgba(255,255,255,.08);}
+.user-tab{padding:10px 16px;font-size:.76rem;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.06em;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:var(--tr);background:none;border-left:none;border-right:none;border-top:none;font-family:'Montserrat',sans-serif;}
+.user-tab.active{color:var(--aa);border-bottom-color:var(--aa);}
+.user-pane{display:none;}
+.user-pane.active{display:block;}
+.user-msg{display:none;border-radius:var(--rs);padding:10px 14px;font-size:.79rem;font-weight:700;margin-bottom:14px;text-align:center;}
+.user-msg.err{display:block;background:rgba(179,0,12,.12);border:1px solid var(--rojo);color:#ff6666;}
+.user-msg.ok{display:block;background:rgba(124,252,0,.07);border:1px solid var(--verde);color:var(--verde);}
+.ubic-suggest{display:none;position:absolute;z-index:10;background:var(--ac);border:1px solid var(--abr);border-radius:var(--rs);max-height:140px;overflow-y:auto;width:100%;margin-top:2px;}
+.ubic-suggest.open{display:block;}
+.ubic-opt{padding:8px 12px;font-size:.78rem;color:rgba(245,240,225,.75);cursor:pointer;transition:var(--tr);}
+.ubic-opt:hover,.ubic-opt.hl{background:rgba(179,0,12,.15);color:var(--crema);}
+.l-field{position:relative;}
+
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;text-align:center;}
+  .hero-btns{justify-content:center;}
+  .footer-inner{grid-template-columns:1fr 1fr;}
+  .adm-sidebar{display:none!important;}
+  .adm-topbar{display:flex!important;}
+  .adm-main-content{padding:14px;}
+  .adm-row,.adm-row3{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .nav-links{display:none;}
+  .nav-toggle{display:flex;}
+  .products-grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:13px;}
+  .card-img{height:120px;font-size:3.2rem;}
+  .f-row{grid-template-columns:1fr;}
+  .footer-inner{grid-template-columns:1fr;}
+  .footer-col:nth-child(n+3){display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="sp-logo">🦷 The Monster</div>
+  <div class="sp-sub">Conectando con Supabase…</div>
+  <div class="sp-bar"><div class="sp-fill" id="spFill"></div></div>
+  <div id="spMsg">Iniciando…</div>
+</div>
+<div id="dbBar"></div>
+
+<!-- DB DIAG PANEL -->
+<div id="diagPanel">
+  <button id="diagClose" onclick="document.getElementById('diagPanel').classList.remove('open')">✕</button>
+  <div style="font-size:.75rem;font-weight:700;color:var(--aa);margin-bottom:8px;">🔌 Diagnóstico Supabase</div>
+  <div id="diagLog"></div>
+</div>
+
+<!-- LOGIN -->
+<div id="loginModal" role="dialog" aria-modal="true">
+  <div class="login-box" id="loginBox">
+    <div class="login-icon">🦷</div>
+    <div class="login-title">Panel Admin</div>
+    <div class="login-sub">The Monster · Acceso restringido</div>
+    <div class="login-err" id="loginErr" role="alert"></div>
+    <div class="l-field"><label class="l-label">Usuario</label><input id="loginUser" class="l-input" type="text" autocomplete="off" placeholder="admin" onkeypress="if(event.key==='Enter')document.getElementById('loginPass').focus()"/></div>
+    <div class="l-field"><label class="l-label">Contraseña</label><div class="l-pass-wrap"><input id="loginPass" class="l-input" type="password" autocomplete="off" placeholder="••••••••" onkeypress="if(event.key==='Enter')doLogin()"/><button class="eye-btn" id="eyeBtn" onclick="togglePass()" type="button">👁</button></div></div>
+    <div class="lock-msg" id="lockMsg"><span id="lockTxt"></span></div>
+    <button class="btn-login" onclick="doLogin()">Entrar al Panel ☠️</button>
+    <button class="btn-cancel" onclick="closeLogin()">Cancelar</button>
+  </div>
+</div>
+
+<!-- USER AUTH -->
+<div id="userPanel">
+  <div class="up-header">
+    <h3>👤 Mi Cuenta</h3>
+    <button class="up-close" onclick="closeUserPanel()">✕</button>
+  </div>
+  <div class="up-body">
+    <div class="user-tabs">
+      <button class="user-tab active" onclick="switchUserTab('login',this)">Iniciar sesión</button>
+      <button class="user-tab" onclick="switchUserTab('register',this)">Registrarse</button>
+    </div>
+    <!-- LOGIN -->
+    <div class="user-pane active" id="upLogin">
+      <div class="user-msg" id="ulMsg"></div>
+      <div class="l-field"><label class="l-label">Correo electrónico</label><input class="l-input" id="ulEmail" type="email" placeholder="tu@email.com"/></div>
+      <div class="l-field"><label class="l-label">Contraseña</label><div class="l-pass-wrap"><input class="l-input" id="ulPass" type="password" placeholder="••••••••"/><button class="eye-btn" onclick="const i=document.getElementById('ulPass');i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'👁':'🙈'" type="button">👁</button></div></div>
+      <button class="btn-login" onclick="userLogin()">Entrar 🦇</button>
+      <p style="text-align:center;margin:10px 0 0;font-size:.72rem;"><a href="#" onclick="switchUserTab('recover',null);return false" style="color:var(--amarillo);">¿Olvidaste tu contraseña?</a></p>
+      <button class="btn-cancel" onclick="closeUserPanel()">Cancelar</button>
+    </div>
+    <!-- REGISTER -->
+    <div class="user-pane" id="upRegister">
+      <div class="user-msg" id="urMsg"></div>
+      <div class="l-field"><label class="l-label">Correo electrónico *</label><input class="l-input" id="urEmail" type="email" placeholder="tu@email.com"/></div>
+      <div class="l-field"><label class="l-label">Contraseña * (mín. 6)</label><div class="l-pass-wrap"><input class="l-input" id="urPass" type="password" placeholder="••••••••"/><button class="eye-btn" onclick="const i=document.getElementById('urPass');i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'👁':'🙈'" type="button">👁</button></div></div>
+      <div class="l-field"><label class="l-label">Nombres *</label><input class="l-input" id="urNombres" placeholder="Juan"/></div>
+      <div class="l-field"><label class="l-label">Apellidos *</label><input class="l-input" id="urApellidos" placeholder="Pérez"/></div>
+      <div class="l-field"><label class="l-label">Teléfono</label><input class="l-input" id="urTel" type="tel" placeholder="55 XXXX XXXX"/></div>
+      <div class="l-field"><label class="l-label">Dirección</label><input class="l-input" id="urDir" placeholder="Calle, número, colonia"/></div>
+      <div class="l-field"><label class="l-label">Ubicación de entrega</label><input class="l-input" id="urUbic" placeholder="Colonia / CP" autocomplete="off" oninput="autoUbic(this)"/><div class="ubic-suggest" id="urUbicSuggest"></div></div>
+      <button class="btn-login" onclick="userRegister()">Crear cuenta 🧟</button>
+      <button class="btn-cancel" onclick="closeUserPanel()">Cancelar</button>
+    </div>
+    <!-- PROFILE EDIT -->
+    <div class="user-pane" id="upProfile">
+      <div class="user-msg" id="peMsg"></div>
+      <div class="login-title">Mi Perfil</div>
+      <div class="l-field"><label class="l-label">Nombres</label><input class="l-input" id="peNombres"/></div>
+      <div class="l-field"><label class="l-label">Apellidos</label><input class="l-input" id="peApellidos"/></div>
+      <div class="l-field"><label class="l-label">Teléfono</label><input class="l-input" id="peTel" type="tel"/></div>
+      <div class="l-field"><label class="l-label">Dirección</label><input class="l-input" id="peDir"/></div>
+      <div class="l-field"><label class="l-label">Ubicación de entrega</label><input class="l-input" id="peUbic" autocomplete="off" oninput="autoUbic(this)"/><div class="ubic-suggest" id="peUbicSuggest"></div></div>
+      <button class="btn-login" onclick="saveProfileEdit()">Guardar cambios 💾</button>
+      <button class="btn-cancel" onclick="closeUserPanel()">Cancelar</button>
+    </div>
+    <!-- RECOVER -->
+    <div class="user-pane" id="upRecover">
+      <div class="user-msg" id="urcMsg"></div>
+      <div class="login-title">Recuperar Contraseña</div>
+      <div class="l-field"><label class="l-label">Correo electrónico</label><input class="l-input" id="urcEmail" type="email" placeholder="tu@email.com"/></div>
+      <button class="btn-login" onclick="userRequestReset()">Enviar código</button>
+      <div id="resetCodeSection" style="display:none;margin-top:14px;">
+        <div class="l-field"><label class="l-label">Código de recuperación</label><input class="l-input" id="urcCode" placeholder="Ej: AB12CD"/></div>
+        <div class="l-field"><label class="l-label">Nueva contraseña</label><input class="l-input" id="urcNewPass" type="password" placeholder="••••••••"/></div>
+        <button class="btn-login" onclick="userConfirmReset()">Cambiar contraseña</button>
+      </div>
+      <button class="btn-cancel" onclick="closeUserPanel()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHANGE PW -->
+<div id="chgPwModal" role="dialog" aria-modal="true">
+  <div class="pw-box">
+    <div class="pw-title">🔑 Cambiar Contraseña</div>
+    <div class="pw-sub">Mínimo 6 caracteres</div>
+    <div class="pw-err" id="pwErr"></div>
+    <div class="adm-f"><label class="adm-lbl">Contraseña actual</label><input id="pwCur" class="adm-inp" type="password"/></div>
+    <div class="adm-f"><label class="adm-lbl">Nueva contraseña</label><input id="pwNew" class="adm-inp" type="password"/></div>
+    <div class="adm-f"><label class="adm-lbl">Confirmar</label><input id="pwCfm" class="adm-inp" type="password"/></div>
+    <div class="pw-btns"><button class="adm-btn ghost" onclick="document.getElementById('chgPwModal').classList.remove('open')">Cancelar</button><button class="adm-btn primary" onclick="doChangePw()">Guardar</button></div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" role="dialog" aria-modal="true">
+  <aside class="adm-sidebar">
+    <div class="adm-sidebar-logo"><span>⚙️</span><div><span>Admin Panel</span><small>The Monster · Supabase</small></div></div>
+    <nav class="adm-nav" id="deskNav">
+      <div class="adm-ni active" data-s="dashboard" onclick="admGo('dashboard',this)"><span class="i">📊</span>Dashboard</div>
+      <div class="adm-ni" data-s="productos" onclick="admGo('productos',this)"><span class="i">🍔</span>Platillos</div>
+      <div class="adm-ni" data-s="ofertas" onclick="admGo('ofertas',this)"><span class="i">🔥</span>Oferta</div>
+      <div class="adm-ni" data-s="hero" onclick="admGo('hero',this)"><span class="i">🎯</span>Hero</div>
+      <div class="adm-ni" data-s="navconf" onclick="admGo('navconf',this)"><span class="i">🧭</span>Navegación</div>
+      <div class="adm-ni" data-s="identidad" onclick="admGo('identidad',this)"><span class="i">🎨</span>Identidad</div>
+      <div class="adm-ni" data-s="redes" onclick="admGo('redes',this)"><span class="i">📲</span>Redes</div>
+      <div class="adm-ni" data-s="seo" onclick="admGo('seo',this)"><span class="i">🔍</span>SEO</div>
+      <div class="adm-ni" data-s="cobertura" onclick="admGo('cobertura',this)"><span class="i">📍</span>Cobertura</div>
+      <div class="adm-ni" data-s="config" onclick="admGo('config',this)"><span class="i">🔧</span>Config</div>
+    </nav>
+    <div class="adm-sidebar-ft">
+      <div class="db-badge"><div class="db-dot" id="dbDot1"></div><span id="dbLbl1">Conectando…</span></div>
+      <button class="adm-btn ghost full sm" onclick="openChgPw()">🔑 Cambiar contraseña</button>
+      <button class="adm-btn danger full sm" onclick="doLogout()">🚪 Cerrar sesión</button>
+      <button class="adm-btn success full" onclick="closeAdmin()">← Ver Sitio</button>
+    </div>
+  </aside>
+
+  <div class="adm-main">
+    <div class="adm-topbar show" id="topbar">
+      <button class="adm-menu-btn" id="mobMenuBtn" onclick="toggleMobAdm()" aria-expanded="false">☰ <span id="curSec">Dashboard</span></button>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <div class="db-badge"><div class="db-dot" id="dbDot2"></div><span id="dbLbl2">DB</span></div>
+        <button class="adm-btn ghost sm" onclick="closeAdmin()">← Sitio</button>
+        <button class="adm-btn danger sm" onclick="doLogout()">Salir</button>
+      </div>
+    </div>
+    <div id="admMobNav">
+      <div class="adm-ni active" onclick="admGoMob('dashboard',this)"><span class="i">📊</span>Dashboard</div>
+      <div class="adm-ni" onclick="admGoMob('productos',this)"><span class="i">🍔</span>Platillos</div>
+      <div class="adm-ni" onclick="admGoMob('ofertas',this)"><span class="i">🔥</span>Oferta</div>
+      <div class="adm-ni" onclick="admGoMob('hero',this)"><span class="i">🎯</span>Hero</div>
+      <div class="adm-ni" onclick="admGoMob('navconf',this)"><span class="i">🧭</span>Navegación</div>
+      <div class="adm-ni" onclick="admGoMob('identidad',this)"><span class="i">🎨</span>Identidad</div>
+      <div class="adm-ni" onclick="admGoMob('redes',this)"><span class="i">📲</span>Redes</div>
+      <div class="adm-ni" onclick="admGoMob('seo',this)"><span class="i">🔍</span>SEO</div>
+      <div class="adm-ni" onclick="admGoMob('cobertura',this)"><span class="i">📍</span>Cobertura</div>
+      <div class="adm-ni" onclick="admGoMob('config',this)"><span class="i">🔧</span>Config</div>
+      <div style="padding:12px;border-top:1px solid var(--abr);margin-top:8px;display:flex;flex-direction:column;gap:7px;">
+        <button class="adm-btn ghost full sm" onclick="openChgPw()">🔑 Cambiar contraseña</button>
+        <button class="adm-btn success full sm" onclick="closeAdmin();toggleMobAdm(false)">← Ver Sitio</button>
+      </div>
+    </div>
+
+    <div class="adm-main-content">
+
+      <!-- DASHBOARD -->
+      <div class="adm-sec active" id="adm-dashboard">
+        <div class="adm-h">Dashboard</div>
+        <div class="adm-sub" id="dashSub">Estado de Supabase</div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-n" id="st-total">0</div><div class="stat-lbl">Platillos</div></div>
+          <div class="stat-card"><div class="stat-n" id="st-active">0</div><div class="stat-lbl">Activos</div></div>
+          <div class="stat-card"><div class="stat-n" id="st-cats">0</div><div class="stat-lbl">Categorías</div></div>
+          <div class="stat-card"><div class="stat-n" id="st-soc">0</div><div class="stat-lbl">Redes</div></div>
+        </div>
+        <div class="adm-card">
+          <div class="adm-card-t">☁️ Estado Supabase</div>
+          <div id="sbStatus" style="padding:12px;border-radius:var(--rs);background:rgba(79,142,247,.08);border:1px solid rgba(79,142,247,.2);font-size:.82rem;color:#a8c7f8;margin-bottom:14px;">⏳ Verificando conexión…</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="adm-btn primary" onclick="sbSyncAll()">☁️ Sincronizar todo</button>
+            <button class="adm-btn ghost" onclick="runDiag()">🔌 Diagnóstico</button>
+            <button class="adm-btn ghost" onclick="exportJSON()">📤 Exportar JSON</button>
+            <button class="adm-btn ghost" onclick="document.getElementById('importFile').click()">📥 Importar JSON</button>
+            <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(this)"/>
+          </div>
+        </div>
+        <div class="adm-card">
+          <div class="adm-card-t">Accesos rápidos</div>
+          <div style="display:flex;flex-wrap:wrap;gap:9px;">
+            <button class="adm-btn primary" onclick="admGo('productos',document.querySelector('[data-s=productos]'))">+ Nuevo Platillo</button>
+            <button class="adm-btn ghost" onclick="admGo('ofertas',document.querySelector('[data-s=ofertas]'))">✏️ Oferta</button>
+            <button class="adm-btn ghost" onclick="admGo('seo',document.querySelector('[data-s=seo]'))">🔍 SEO</button>
+            <button class="adm-btn ghost" onclick="admGo('config',document.querySelector('[data-s=config]'))">🔧 Config</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTOS -->
+      <div class="adm-sec" id="adm-productos">
+        <div class="adm-h">Platillos</div>
+        <div class="adm-sub">Se guardan en Supabase → tabla products</div>
+        <div style="display:flex;justify-content:flex-end;margin-bottom:14px;gap:10px;">
+          <button class="adm-btn ghost sm" onclick="sbSaveProducts()">☁️ Guardar todos</button>
+          <button class="adm-btn primary" onclick="openProdModal()">+ Nuevo</button>
+        </div>
+        <div class="adm-card"><div class="adm-card-t">Lista</div><div class="prod-list" id="admProdList"></div></div>
+      </div>
+
+      <!-- OFERTAS -->
+      <div class="adm-sec" id="adm-ofertas">
+        <div class="adm-h">Oferta Destacada</div><div class="adm-sub">→ site_config[oferta]</div>
+        <div class="adm-card"><div class="adm-card-t">Contenido</div>
+          <div class="adm-f"><label class="adm-lbl">Badge</label><input class="adm-inp" id="of-tag"/></div>
+          <div class="adm-f"><label class="adm-lbl">Título</label><input class="adm-inp" id="of-title"/></div>
+          <div class="adm-f"><label class="adm-lbl">Descripción</label><textarea class="adm-ta" id="of-desc"></textarea></div>
+          <div class="adm-row"><div class="adm-f"><label class="adm-lbl">Precio original</label><input class="adm-inp" id="of-pold" type="number"/></div><div class="adm-f"><label class="adm-lbl">Precio oferta</label><input class="adm-inp" id="of-pnew" type="number"/></div></div>
+          <div class="adm-row"><div class="adm-f"><label class="adm-lbl">Calificación</label><input class="adm-inp" id="of-rating" placeholder="4.8"/></div><div class="adm-f"><label class="adm-lbl">Texto botón</label><input class="adm-inp" id="of-btn"/></div></div>
+          <div style="display:flex;justify-content:flex-end;"><button class="adm-btn primary" onclick="saveOfertas()">☁️ Guardar</button></div>
+        </div>
+      </div>
+
+      <!-- HERO -->
+      <div class="adm-sec" id="adm-hero">
+        <div class="adm-h">Hero / Banner</div><div class="adm-sub">→ site_config[hero]</div>
+        <div class="adm-card"><div class="adm-card-t">Textos</div>
+          <div class="adm-f"><label class="adm-lbl">Badge</label><input class="adm-inp" id="hero-badge-txt"/></div>
+          <div class="adm-f"><label class="adm-lbl">Título (usa \n para salto)</label><textarea class="adm-ta" id="hero-title-txt" style="min-height:70px"></textarea></div>
+          <div class="adm-f"><label class="adm-lbl">Eslogan</label><input class="adm-inp" id="hero-slogan-txt"/></div>
+          <div class="adm-f"><label class="adm-lbl">Subtítulo</label><input class="adm-inp" id="hero-sub-txt"/></div>
+          <div class="adm-row"><div class="adm-f"><label class="adm-lbl">Botón 1</label><input class="adm-inp" id="hero-btn1"/></div><div class="adm-f"><label class="adm-lbl">Botón 2</label><input class="adm-inp" id="hero-btn2"/></div></div>
+        </div>
+        <div class="adm-card"><div class="adm-card-t">Visual</div>
+          <div class="adm-f"><label class="adm-lbl">Emoji (sin imagen)</label><input class="adm-inp" id="hero-emoji" placeholder="🍔"/></div>
+          <div class="adm-f"><label class="adm-lbl">Imagen hero</label><div class="img-up" id="heroPrev" onclick="document.getElementById('heroFile').click()"><div class="ph">📷 Subir imagen</div><input type="file" id="heroFile" accept="image/*" style="display:none" onchange="loadHeroImg(this)"/></div></div>
+          <div style="display:flex;justify-content:flex-end;"><button class="adm-btn primary" onclick="saveHero()">☁️ Guardar</button></div>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="adm-sec" id="adm-navconf">
+        <div class="adm-h">Navegación</div><div class="adm-sub">→ site_config[nav]</div>
+        <div class="adm-card"><div class="adm-card-t">Links</div><div id="navLinksList"></div><button class="adm-btn ghost" style="margin-top:10px" onclick="addNavLink()">+ Agregar enlace</button></div>
+        <div class="adm-card"><div class="adm-card-t">Botón CTA</div>
+          <div class="adm-row"><div class="adm-f"><label class="adm-lbl">Texto</label><input class="adm-inp" id="nav-cta-txt"/></div><div class="adm-f"><label class="adm-lbl">Href</label><input class="adm-inp" id="nav-cta-href"/></div></div>
+          <div style="display:flex;justify-content:flex-end;"><button class="adm-btn primary" onclick="saveNav()">☁️ Guardar</button></div>
+        </div>
+      </div>
+
+      <!-- IDENTIDAD -->
+      <div class="adm-sec" id="adm-identidad">
+        <div class="adm-h">Identidad Visual</div><div class="adm-sub">→ site_config[identidad]</div>
+        <div class="adm-card"><div class="adm-card-t">Logo y Nombre</div>
+          <div class="adm-f"><label class="adm-lbl">Nombre del restaurante</label><input class="adm-inp" id="id-nombre"/></div>
+          <div class="adm-f"><label class="adm-lbl">Logo PNG/JPG</label><div class="img-up" style="height:80px" id="logoPrev" onclick="document.getElementById('logoFile').click()"><div class="ph">📷 Subir logo</div><input type="file" id="logoFile" accept="image/*" style="display:none" onchange="loadLogo(this)"/></div></div>
+          <div style="display:flex;justify-content:flex-end;"><button class="adm-btn primary" onclick="saveIdentidad()">☁️ Guardar</button></div>
+        </div>
+        <div class="adm-card"><div class="adm-card-t">Colores</div>
+          <div class="adm-row3">
+            <div class="adm-f"><label class="adm-lbl">Rojo</label><div class="color-row"><input type="color" class="adm-inp" id="col-rojo" value="#B3000C" oninput="document.getElementById('hex-rojo').textContent=this.value"/><span class="color-hex" id="hex-rojo">#B3000C</span></div></div>
+            <div class="adm-f"><label class="adm-lbl">Amarillo</label><div class="color-row"><input type="color" class="adm-inp" id="col-amarillo" value="#E6C200" oninput="document.getElementById('hex-amarillo').textContent=this.value"/><span class="color-hex" id="hex-amarillo">#E6C200</span></div></div>
+            <div class="adm-f"><label class="adm-lbl">Verde</label><div class="color-row"><input type="color" class="adm-inp" id="col-verde" value="#7CFC00" oninput="document.getElementById('hex-verde').textContent=this.value"/><span class="color-hex" id="hex-verde">#7CFC00</span></div></div>
+          </div>
+          <div style="display:flex;gap:9px;justify-content:flex-end;"><button class="adm-btn ghost" onclick="previewColors()">👁 Preview</button><button class="adm-btn primary" onclick="applyColors()">☁️ Aplicar</button></div>
+        </div>
+      </div>
+
+      <!-- REDES -->
+      <div class="adm-sec" id="adm-redes">
+        <div class="adm-h">Redes Sociales</div><div class="adm-sub">→ site_config[redes]</div>
+        <div class="adm-card"><div class="adm-card-t">Cuentas</div>
+          <div id="redesList"></div>
+          <button class="adm-btn ghost" style="margin-top:10px" onclick="addRed()">+ Agregar</button>
+          <div style="display:flex;justify-content:flex-end;margin-top:14px;"><button class="adm-btn primary" onclick="saveRedes()">☁️ Guardar</button></div>
+        </div>
+      </div>
+
+      <!-- SEO -->
+      <div class="adm-sec" id="adm-seo">
+        <div class="adm-h">SEO & Search Console</div><div class="adm-sub">→ tabla seo_config</div>
+        <div class="seo-score"><div class="seo-circle" id="seoCircle">0</div><div><div style="font-size:.88rem;font-weight:700;color:#fff;margin-bottom:4px">Puntuación SEO</div><div style="font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.6" id="seoScoreTxt">Completa los campos</div></div></div>
+        <div class="adm-card"><div class="adm-card-t">📄 Meta Tags</div>
+          <div class="adm-f"><label class="adm-lbl">Título de página <span style="color:var(--amarillo)">(50-60 chars)</span></label><input class="adm-inp" id="seo-title" oninput="seoCount('seo-title','stc',60)"/><div style="font-size:.7rem;color:rgba(255,255,255,.3);margin-top:4px"><span id="stc">0</span>/60</div></div>
+          <div class="adm-f"><label class="adm-lbl">Meta descripción <span style="color:var(--amarillo)">(120-160 chars)</span></label><textarea class="adm-ta" id="seo-desc" style="min-height:70px" oninput="seoCount('seo-desc','sdc',160)"></textarea><div style="font-size:.7rem;color:rgba(255,255,255,.3);margin-top:4px"><span id="sdc">0</span>/160</div></div>
+          <div class="adm-f"><label class="adm-lbl">URL Canónica</label><input class="adm-inp" id="seo-canonical" placeholder="https://tudominio.com/"/></div>
+          <div class="adm-f"><label class="adm-lbl">Robots</label><select class="adm-sel" id="seo-robots"><option value="index,follow">index, follow (recomendado)</option><option value="noindex,follow">noindex, follow</option><option value="noindex,nofollow">noindex, nofollow</option></select></div>
+        </div>
+        <div class="adm-card"><div class="adm-card-t">🔑 Palabras Clave</div>
+          <div class="adm-f"><div style="display:flex;gap:8px;"><input class="adm-inp" id="seo-kw-input" placeholder="hamburguesas coyoacán" onkeypress="if(event.key==='Enter')addKw()"/><button class="adm-btn primary sm" onclick="addKw()">+ Agregar</button></div></div>
+          <div class="seo-kw-list" id="kwList"></div>
+        </div>
+        <div class="adm-card"><div class="adm-card-t">📱 Open Graph & Twitter</div>
+          <div class="adm-f"><label class="adm-lbl">Título OG</label><input class="adm-inp" id="seo-og-title"/></div>
+          <div class="adm-f"><label class="adm-lbl">Descripción OG</label><textarea class="adm-ta" id="seo-og-desc" style="min-height:60px"></textarea></div>
+          <div class="adm-f"><label class="adm-lbl">Imagen OG (URL)</label><input class="adm-inp" id="seo-og-img" placeholder="https://..."/></div>
+          <div class="adm-f"><label class="adm-lbl">Twitter Card</label><select class="adm-sel" id="seo-tw-card"><option value="summary_large_image">Summary Large Image</option><option value="summary">Summary</option></select></div>
+        </div>
+        <div class="adm-card"><div class="adm-card-t">🔍 Google Search Console</div>
+          <div class="adm-f"><label class="adm-lbl">Meta tag verificación HTML</label><input class="adm-inp" id="seo-gsc" placeholder='&lt;meta name="google-site-verification" content="..."/&gt;'/></div>
+          <div class="adm-f"><label class="adm-lbl">Google Analytics 4</label><input class="adm-inp" id="seo-ga" placeholder="G-XXXXXXXXXX"/></div>
+          <div class="adm-f"><label class="adm-lbl">Google Tag Manager</label><input class="adm-inp" id="seo-gtm" placeholder="GTM-XXXXXXX"/></div>
+        </div>
+        <div class="adm-card"><div class="adm-card-t">🗺 Sitemap XML</div>
+          <div class="adm-row"><div class="adm-f"><label class="adm-lbl">URL base</label><input class="adm-inp" id="seo-siteurl" placeholder="https://tudominio.com"/></div><div class="adm-f"><label class="adm-lbl">Frecuencia</label><select class="adm-sel" id="seo-freq"><option value="daily">Diaria</option><option value="weekly" selected>Semanal</option><option value="monthly">Mensual</option></select></div></div>
+          <div class="adm-f"><label class="adm-lbl">URLs adicionales (una por línea)</label><textarea class="adm-ta" id="seo-extra-urls" placeholder="/menu&#10;/ofertas" style="min-height:60px"></textarea></div>
+          <button class="adm-btn primary" onclick="genSitemap()">🗺 Generar Sitemap</button>
+          <div id="sitemapWrap" style="display:none;margin-top:12px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:.75rem;color:rgba(255,255,255,.4)">sitemap.xml</span><button class="copy-btn" onclick="copySitemap()">📋 Copiar</button></div><div class="sitemap-out" id="sitemapOut"></div><button class="adm-btn success" style="margin-top:10px" onclick="dlSitemap()">⬇️ Descargar</button></div>
+        </div>
+        <div class="adm-card"><div class="adm-card-t">🏗 Schema.org</div>
+          <div class="adm-row"><div class="adm-f"><label class="adm-lbl">Nombre</label><input class="adm-inp" id="sch-name" placeholder="The Monster Dark Kitchen"/></div><div class="adm-f"><label class="adm-lbl">Teléfono</label><input class="adm-inp" id="sch-tel" placeholder="+52 55 XXXX XXXX"/></div></div>
+          <div class="adm-f"><label class="adm-lbl">Dirección</label><input class="adm-inp" id="sch-addr" placeholder="Adolfo Ruiz Cortines, Coyoacán, CDMX 04630"/></div>
+          <div class="adm-row"><div class="adm-f"><label class="adm-lbl">Rango precio</label><select class="adm-sel" id="sch-price"><option value="$">$</option><option value="$$" selected>$$</option><option value="$$$">$$$</option></select></div><div class="adm-f"><label class="adm-lbl">Calificación</label><input class="adm-inp" id="sch-rating" type="number" min="1" max="5" step="0.1" placeholder="4.8"/></div></div>
+          <button class="adm-btn primary" onclick="genSchema()">⚡ Generar JSON-LD</button>
+          <div id="schemaWrap" style="display:none;margin-top:12px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:.75rem;color:rgba(255,255,255,.4)">JSON-LD para &lt;head&gt;</span><button class="copy-btn" onclick="copySchema()">📋 Copiar</button></div><div class="sitemap-out" id="schemaOut"></div></div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;"><button class="adm-btn primary" onclick="saveSEO()">☁️ Guardar SEO</button></div>
+      </div>
+
+      <!-- COBERTURA -->
+      <div class="adm-sec" id="adm-cobertura">
+        <div class="adm-h">📍 Cobertura de Entrega</div>
+        <div class="adm-sub">Radio: 3 km desde Adolfo Ruiz Cortines</div>
+        <div class="adm-card">
+          <div class="adm-card-t">Colonias con cobertura</div>
+          <div style="display:flex;flex-direction:column;gap:6px;" id="admColoniasList"></div>
+        </div>
+        <div class="adm-card">
+          <div class="adm-card-t">Resumen</div>
+          <div id="admCobResumen" style="font-size:.85rem;color:rgba(245,240,225,.6);"></div>
+        </div>
+      </div>
+
+      <!-- CONFIG -->
+      <div class="adm-sec" id="adm-config">
+        <div class="adm-h">Configuración General</div><div class="adm-sub">→ site_config[general]</div>
+        <div class="adm-card"><div class="adm-card-t">WhatsApp</div><div class="adm-f"><label class="adm-lbl">Número (con código de país, sin +)</label><input class="adm-inp" id="cfg-wa" placeholder="525662771966"/></div></div>
+        <div class="adm-card"><div class="adm-card-t">Google Maps API Key</div><div class="adm-f"><label class="adm-lbl">API Key</label><input class="adm-inp" id="cfg-maps" placeholder="AIza..."/></div><p style="font-size:.71rem;color:rgba(255,255,255,.28);margin-top:4px;">console.cloud.google.com → Maps Embed API</p></div>
+        <div class="adm-card"><div class="adm-card-t">Footer</div>
+          <div class="adm-f"><label class="adm-lbl">Descripción</label><textarea class="adm-ta" id="cfg-desc"></textarea></div>
+          <div class="adm-f"><label class="adm-lbl">Sello inferior</label><input class="adm-inp" id="cfg-sello"/></div>
+          <div class="adm-f"><label class="adm-lbl">Copyright</label><input class="adm-inp" id="cfg-copy"/></div>
+          <div class="adm-f"><label class="adm-lbl">Horario (una línea por turno)</label><textarea class="adm-ta" id="cfg-hor" style="min-height:60px"></textarea></div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;"><button class="adm-btn primary" onclick="saveConfig()">☁️ Guardar</button></div>
+      </div>
+    </div><!-- /main-content -->
+  </div><!-- /adm-main -->
+</div><!-- /adminPanel -->
+
+<!-- PRODUCTO MODAL -->
+<div class="adm-modal-bg" id="prodModal">
+  <div class="adm-modal">
+    <div class="adm-modal-hd"><div class="adm-modal-title" id="pmTitle">Nuevo Platillo</div><button class="adm-modal-x" onclick="closeProdModal()">✕</button></div>
+    <div class="adm-f"><label class="adm-lbl">Nombre</label><input class="adm-inp" id="pm-name" placeholder="La Addams"/></div>
+    <div class="adm-row"><div class="adm-f"><label class="adm-lbl">Precio ($)</label><input class="adm-inp" id="pm-price" type="number" min="1"/></div><div class="adm-f"><label class="adm-lbl">Categoría</label><select class="adm-sel" id="pm-cat"><option value="sencillas">Sencillas</option><option value="dobles">Dobles</option><option value="especiales">Especiales</option><option value="extras">Extras</option></select></div></div>
+    <div class="adm-f"><label class="adm-lbl">Descripción</label><textarea class="adm-ta" id="pm-desc"></textarea></div>
+    <div class="adm-row"><div class="adm-f"><label class="adm-lbl">Emoji</label><input class="adm-inp" id="pm-emoji" placeholder="🍔"/></div><div class="adm-f"><label class="adm-lbl">Badge</label><input class="adm-inp" id="pm-badge" placeholder="Vibrant, Nuevo…"/></div></div>
+    <div class="adm-f"><label class="adm-lbl">Imagen del platillo</label><div class="img-up" id="pmPrev" onclick="document.getElementById('pmFile').click()"><div class="ph">📷 Click para subir foto</div><input type="file" id="pmFile" accept="image/*" style="display:none" onchange="loadProdImg(this)"/></div></div>
+    <div class="chk-row"><input type="checkbox" id="pm-active" checked/><label for="pm-active">Platillo activo (visible en el menú)</label></div>
+    <div class="adm-modal-ft"><button class="adm-btn ghost" onclick="closeProdModal()">Cancelar</button><button class="adm-btn primary" onclick="saveProd()">☁️ Guardar</button></div>
+  </div>
+</div>
+
+<!-- SITE -->
+<nav id="siteNav"><div class="nav-wrap">
+  <a href="#" class="logo"><div class="logo-icon" id="navLogoIcon">🦷</div><div class="logo-name" id="navName">The <em>Monster</em></div></a>
+  <ul class="nav-links" id="navLinks" role="list">
+    <li><a href="#menu">Menú</a></li><li><a href="#oferta">Ofertas</a></li><li><a href="#cobertura">Cobertura</a></li>
+    <li><a href="#" class="nav-cta" onclick="openCart();return false;">🛒 Pedir Ahora</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-expanded="false" onclick="toggleMobNav()"><span></span><span></span><span></span></button>
+</div></nav>
+<div id="mobileMenu">
+  <a href="#menu" onclick="closeMobNav()">🍔 Menú</a>
+  <a href="#oferta" onclick="closeMobNav()">🔥 Ofertas</a>
+  <a href="#cobertura" onclick="closeMobNav()">📍 Cobertura</a>
+  <a href="#" class="mob-cta" onclick="openCart();closeMobNav();return false;">🛒 Pedir Ahora</a>
+  <a href="#" id="mobUserBtn" onclick="if(USER_SESSION){userLogout();closeMobNav();}else{openUserPanel('login');closeMobNav();}return false">👤 Iniciar sesión</a>
+</div>
+
+<section id="hero">
+  <span class="bat" style="top:10%;left:6%">🦇</span><span class="bat" style="top:20%;right:10%;animation-delay:2s;font-size:1rem">🦇</span>
+  <span class="bat" style="top:65%;left:4%;animation-delay:4s;font-size:.9rem">🦇</span><span class="bat" style="top:78%;right:7%;animation-delay:1s">🦇</span>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge" id="heroBadge">🩸 Ofertas de Ultratumba 🩸</div>
+      <h1 class="hero-h1" id="heroH1">THE<br>MONSTER</h1>
+      <p class="hero-slogan" id="heroSlogan">Muerde el Terror</p>
+      <p class="hero-sub" id="heroSub">⚡ Dark Kitchen · Coyoacán · CDMX ⚡</p>
+      <div class="hero-btns">
+        <button class="btn btn-p" id="heroBtn1" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">🛒 Ordenar Ahora</button>
+        <button class="btn btn-o" id="heroBtn2" onclick="document.getElementById('cobertura').scrollIntoView({behavior:'smooth'})">📍 Ver Cobertura</button>
+      </div>
+    </div>
+    <div class="hero-visual" id="heroVisual">🍔</div>
+  </div>
+</section>
+
+<section id="menu" class="section">
+  <div class="section-inner">
+    <div class="section-head"><h2 class="section-title" style="color:var(--rojo)">☠️ El Menú del Terror ☠️</h2><p class="section-sub">Cada mordida es una experiencia de ultratumba</p><div class="divider" style="color:var(--rojo)"></div></div>
+    <div class="cat-tabs">
+      <button class="cat-tab active" onclick="filterCat('all',this)">Todos</button>
+      <button class="cat-tab" onclick="filterCat('sencillas',this)">🧟 Sencillas</button>
+      <button class="cat-tab" onclick="filterCat('dobles',this)">👹 Dobles</button>
+      <button class="cat-tab" onclick="filterCat('especiales',this)">💀 Especiales</button>
+      <button class="cat-tab" onclick="filterCat('extras',this)">🧪 Extras</button>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+</section>
+
+<section id="oferta" class="section" style="background:var(--neg2)">
+  <div class="section-inner">
+    <div class="oferta-card">
+      <div class="oferta-tag" id="siteOfTag">🔥 Oferta de Ultratumba</div>
+      <h2 class="oferta-title" id="siteOfTitle">Combo Addams</h2>
+      <p class="oferta-desc" id="siteOfDesc">Hamburguesa + Papas Monstruosas + Bebida del Inframundo</p>
+      <div class="oferta-prices"><span class="price-old" id="siteOfPold">$180</span><span class="price-new" id="siteOfPnew">$149</span></div>
+      <div class="stars">★★★★★</div>
+      <p style="color:var(--amarillo);font-size:.82rem;margin-bottom:20px" id="siteOfRating">4.8 — Valoración Vibrant</p>
+      <button class="btn btn-p" id="siteOfBtn">🛒 Agregar Combo</button>
+    </div>
+  </div>
+</section>
+
+<section id="cobertura" class="section" style="background:var(--neg2)">
+  <div class="section-inner">
+    <div class="section-head"><h2 class="section-title" style="color:var(--amarillo)">📍 ¿Llegamos a tu Cripta?</h2><p class="section-sub">Verifica si tu colonia está dentro de nuestra zona de entrega</p><div class="divider" style="color:var(--amarillo)"></div></div>
+    <div class="cob-wrap">
+      <div class="cob-search"><input class="cob-input" id="cobInput" placeholder="Ingresa tu colonia o C.P." onkeypress="if(event.key==='Enter')checkCob()"/><button class="btn-cob" onclick="checkCob()">🔍 Verificar</button></div>
+      <div class="cob-result" id="cobResult"></div>
+      <div class="cob-map"><iframe id="mapFrame" title="Mapa de cobertura" loading="lazy" src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCiyx7SBwzl1RzdxvqZDcO2N2LHwyrMNv0&center=19.3300,-99.1550&zoom=14&maptype=roadmap"></iframe></div>
+      <details style="margin-top:16px"><summary>Ver colonias con cobertura</summary><div class="colonias-list" id="coloniasList"></div></details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="logo-name">The <em style="color:var(--rojo);font-style:normal">Monster</em></div><p id="footerDesc">Dark Kitchen nacida en el corazón de Coyoacán.</p><div class="footer-socials" id="footerSocials"></div></div>
+    <div class="footer-col"><h4>Menú</h4><ul><li><a href="#menu">Sencillas</a></li><li><a href="#menu">Dobles</a></li><li><a href="#menu">Especiales</a></li><li><a href="#oferta">Combo Addams</a></li></ul></div>
+    <div class="footer-col"><h4>Contacto</h4><ul><li><a id="footerWa" href="https://wa.me/525662771966" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="#cobertura">Zona de Cobertura</a></li></ul></div>
+    <div class="footer-col"><h4>Horario</h4><ul id="footerHorario"><li><a>Lun – Vie: 1pm – 10pm</a></li><li><a>Sáb – Dom: 12pm – 11pm</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><div class="sello" id="footerSello">🧪 Hecho con Veneno y Amor 🧪</div><p class="footer-copy" id="footerCopy">© 2025 The Monster Dark Kitchen · Coyoacán, CDMX</p></div>
+</footer>
+
+<button id="cartFab" onclick="openCart()" aria-label="Abrir carrito">🛒<span id="cartCount">0</span></button>
+<button id="adminFab" onclick="openAdmin()" aria-label="Panel de administración" title="Admin" style="display:none">⚙️</button>
+<button id="diagFab" onclick="document.getElementById('diagPanel').classList.toggle('open')" aria-label="Diagnóstico de conexión" title="Diagnóstico DB" style="display:none">🔌</button>
+
+<div class="overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="drawer" id="cartDrawer" role="dialog" aria-modal="true">
+  <div class="drawer-hd"><span class="drawer-title">☠️ Tu Pedido</span><button class="drawer-x" onclick="closeCart()">✕</button></div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-ft">
+    <div class="total-row"><span class="total-label">Total del Terror:</span><span class="total-val" id="cartTotal">$0</span></div>
+    <div class="delivery-opts" id="delivOpts">
+      <button class="d-opt active" id="optDom" onclick="setDel('domicilio')"><div class="d-opt-icon">🛵</div><span class="d-opt-label">A domicilio</span><span class="d-opt-sub">Solo zona Coyoacán</span></button>
+      <button class="d-opt" id="optRec" onclick="setDel('recoger')"><div class="d-opt-icon">🏚️</div><span class="d-opt-label">Recoger</span><span class="d-opt-sub">Adolfo Ruiz Cortines</span></button>
+    </div>
+    <div class="cob-warn" id="chkWarn">⚠️ Colonia fuera de cobertura. Elige "Recoger".</div>
+    <div class="cob-dist" id="chkDist"></div>
+    <div class="chk-form" id="chkForm">
+      <div class="f-group"><label class="f-label">Nombre</label><input class="f-input" id="cfNombre" placeholder="¿Cómo te llaman, monstruo?" autocomplete="name"/></div>
+      <div class="f-row"><div class="f-group"><label class="f-label">Teléfono</label><input class="f-input" id="cfTel" type="tel" placeholder="55 XXXX XXXX"/></div><div class="f-group"><label class="f-label">Colonia / CP</label><input class="f-input" id="cfColonia" placeholder="Tu colonia" oninput="liveCheckCol()"/></div></div>
+      <div class="f-group" id="dirGroup"><label class="f-label">Calle y número</label><input class="f-input" id="cfDir" placeholder="Calle, núm., entre calles"/></div>
+      <div class="f-group"><label class="f-label">Notas (opcional)</label><input class="f-input" id="cfNotas" placeholder="Sin picante…"/></div>
+    </div>
+    <button class="btn-chk-gps" id="btnGps" onclick="useGpsLocation()" style="display:none">📍 Usar mi ubicación actual</button>
+    <button class="btn-chk-data" id="btnDatos" style="display:none" onclick="toggleChk()">📋 Mis datos de entrega</button>
+    <button class="btn-chk-mp" id="btnMP" style="display:none" onclick="payWithMP()">💳 Pagar con Mercado Pago</button>
+    <button class="btn-chk-send" id="btnSend" style="display:none" onclick="sendOrder()">💬 Enviar por WhatsApp</button>
+  </div>
+</div>
+
+<div class="order-confirm" id="orderConfirm">
+  <div class="oc-card">
+    <div class="oc-icon" id="ocIcon">✅</div>
+    <div class="oc-title" id="ocTitle">¡Pedido Confirmado!</div>
+    <div class="oc-sub" id="ocSub">Tu pedido se registró correctamente</div>
+    <div class="oc-number" id="ocNumber">#1001</div>
+    <div class="oc-detail" id="ocDetail"></div>
+    <div id="ocStatus" style="margin-top:10px;font-size:.8rem;color:var(--amarillo)">⏳ Esperando confirmación de pago…</div>
+    <button class="oc-btn" onclick="closeOrderConfirm()">🍔 Seguir pidiendo</button>
+    <a class="oc-btn-sec" id="ocWaBtn" target="_blank" rel="noopener">💬 WhatsApp</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="adm-toast" id="admToast"></div>
+
+<script>
+'use strict';
+/* ═══════════════════════════════════════════════════════════
+   SUPABASE CLIENT — Corrección completa
+   ═══════════════════════════════════════════════════════════ */
+const SB_URL = 'https://otyswvsghievcnacgzit.supabase.co';
+const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90eXN3dnNnaGlldmNuYWNneml0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MzM3MTUsImV4cCI6MjA5NTIwOTcxNX0.OOCrJ6gbnUDylHWzDA-ArA9tMffA1PcHQPuo7PBaBJA';
+const SB_STORAGE = SB_URL + '/storage/v1/object/public/product-images';
+
+function esc(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+async function sbUpload(path, file) {
+  const url = SB_URL + '/storage/v1/object/product-images/' + path;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + SB_ANON,
+      'apikey': SB_ANON,
+      'Content-Type': file.type || 'image/jpeg'
+    },
+    body: file
+  });
+  if (!res.ok) {
+    const txt = await res.text();
+    throw new Error('Upload: ' + txt.substring(0, 80));
+  }
+  return SB_STORAGE + '/' + path;
+}
+
+/* Cabeceras base correctas para Supabase REST */
+function sbHeaders(extra = {}) {
+  return {
+    'apikey': SB_ANON,
+    'Authorization': 'Bearer ' + SB_ANON,
+    'Content-Type': 'application/json',
+    ...extra
+  };
+}
+
+/* Fetch wrapper con diagnóstico */
+async function sbFetch(method, path, body = null, extraHeaders = {}) {
+  const url = SB_URL + '/rest/v1/' + path;
+  const ctrl = new AbortController();
+  const to = setTimeout(() => ctrl.abort(), 15000);
+  const opts = {
+    method,
+    headers: sbHeaders(extraHeaders),
+    signal: ctrl.signal,
+    ...(body !== null ? { body: JSON.stringify(body) } : {})
+  };
+  diag(`→ ${method} ${path.split('?')[0]}`);
+  try {
+    const res = await fetch(url, opts);
+    clearTimeout(to);
+    const text = await res.text();
+    if (!res.ok) {
+      const msg = `HTTP ${res.status}: ${text.substring(0, 120)}`;
+      diag('✗ ' + msg, 'err');
+      throw new Error(msg);
+    }
+    diag(`✓ ${res.status}`, 'ok');
+    return text ? JSON.parse(text) : null;
+  } catch (e) {
+    clearTimeout(to);
+    const msg = e.name === 'AbortError' ? '⏱ Timeout (15s)' : e.message;
+    diag('✗ ' + msg, 'err');
+    throw new Error(msg);
+  }
+}
+
+/* CRUD limpio */
+const SB = {
+  /* SELECT */
+  select: (table, query = '*') =>
+    sbFetch('GET', `${table}?select=${query}`),
+
+  selectWhere: (table, col, val, query = '*') =>
+    sbFetch('GET', `${table}?select=${query}&${col}=eq.${encodeURIComponent(val)}`),
+
+  /* UPSERT — Prefer: resolution=merge-duplicates  */
+  upsert: (table, rows) => {
+    const arr = Array.isArray(rows) ? rows : [rows];
+    return sbFetch('POST', table, arr, {
+      'Prefer': 'resolution=merge-duplicates,return=representation'
+    });
+  },
+
+  /* UPDATE por columna */
+  update: (table, col, val, data) =>
+    sbFetch('PATCH', `${table}?${col}=eq.${encodeURIComponent(val)}`, data, {
+      'Prefer': 'return=representation'
+    }),
+
+  /* DELETE por columna */
+  delete: (table, col, val) =>
+    sbFetch('DELETE', `${table}?${col}=eq.${encodeURIComponent(val)}`),
+};
+
+/* ── Diagnóstico ── */
+const diagLines = [];
+function diag(msg, cls = '') {
+  const t = new Date().toLocaleTimeString('es-MX');
+  diagLines.push(`<span class="${cls ? 'diag-' + cls : ''}">[${t}] ${msg}</span>`);
+  if (diagLines.length > 80) diagLines.shift();
+  const el = document.getElementById('diagLog');
+  if (el) { el.innerHTML = diagLines.join('\n'); el.scrollTop = el.scrollHeight; }
+}
+
+/* ── DB status dots ── */
+function dbDots(state) {
+  /* state: 'ok' | 'sync' | 'err' | 'off' */
+  const labels = { ok: '☁️ Sincronizado', sync: '⏳ Guardando…', err: '❌ Error', off: '⚫ Sin conexión' };
+  ['dbDot1','dbDot2'].forEach(id => {
+    const d = document.getElementById(id);
+    if (d) { d.className = 'db-dot ' + (state === 'ok' ? 'ok' : state === 'sync' ? 'sync' : 'err'); }
+  });
+  ['dbLbl1','dbLbl2'].forEach(id => {
+    const d = document.getElementById(id);
+    if (d) d.textContent = labels[state] || state;
+  });
+  const sb = document.getElementById('sbStatus');
+  if (sb) {
+    const c = { ok: 'rgba(124,252,0,.08)', sync: 'rgba(230,194,0,.08)', err: 'rgba(179,0,12,.1)', off: 'rgba(100,100,100,.1)' };
+    const b = { ok: 'rgba(124,252,0,.25)', sync: 'rgba(230,194,0,.25)', err: 'rgba(179,0,12,.3)', off: 'rgba(100,100,100,.2)' };
+    const i = { ok: '✅', sync: '⏳', err: '❌', off: '⚠️' };
+    sb.style.background = c[state]; sb.style.borderColor = b[state];
+    sb.textContent = i[state] + ' ' + (labels[state] || state);
+  }
+}
+
+/* ── Progress bar ── */
+function dbBar(on) {
+  const b = document.getElementById('dbBar');
+  if (on) { b.className = ''; b.style.opacity = '1'; b.style.transform = 'scaleX(0)'; requestAnimationFrame(() => b.classList.add('active')); }
+  else { b.classList.remove('active'); b.classList.add('done'); setTimeout(() => { b.className = ''; }, 900); }
+}
+
+/* ── Splash ── */
+function spProgress(pct, msg) {
+  const f = document.getElementById('spFill'); if (f) f.style.width = pct + '%';
+  const m = document.getElementById('spMsg'); if (m) m.textContent = msg;
+}
+function spHide() {
+  const s = document.getElementById('splash');
+  if (s) { s.classList.add('out'); setTimeout(() => s.style.display = 'none', 600); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ESTADO
+   ═══════════════════════════════════════════════════════════ */
+let CFG = {
+  wa: '525662771966',
+  mapsKey: 'AIzaSyCiyx7SBwzl1RzdxvqZDcO2N2LHwyrMNv0',
+  footerDesc: 'Dark Kitchen nacida en el corazón de Coyoacán. Cada hamburguesa es una obra maestra del terror culinario.',
+  sello: '🧪 Hecho con Veneno y Amor 🧪',
+  copy: '© 2025 The Monster Dark Kitchen · Coyoacán, CDMX',
+  horario: 'Lun – Vie: 1pm – 10pm\nSáb – Dom: 12pm – 11pm',
+  nombre: 'The Monster', logoSrc: null,
+  heroEmoji: '🍔', heroImgSrc: null,
+  heroBadge: '🩸 Ofertas de Ultratumba 🩸',
+  heroTitle: 'THE\nMONSTER', heroSlogan: 'Muerde el Terror',
+  heroSub: '⚡ Dark Kitchen · Coyoacán · CDMX ⚡',
+  heroBtn1: '🛒 Ordenar Ahora', heroBtn2: '📍 Ver Cobertura',
+  navCta: '🛒 Pedir Ahora', navCtaHref: '#',
+  navLinks: [{ label: 'Menú', href: '#menu' }, { label: 'Ofertas', href: '#oferta' }, { label: 'Cobertura', href: '#cobertura' }],
+  ofTag: '🔥 Oferta de Ultratumba', ofTitle: 'Combo Addams',
+  ofDesc: 'Hamburguesa sangrienta a tu elección\n+ Papas Monstruosas crujientes\n+ Bebida del Inframundo 500ml',
+  ofPold: '180', ofPnew: '149', ofRating: '4.8', ofBtn: '🛒 Agregar Combo',
+  redes: [{ icon: '📱', label: 'Instagram', url: 'https://instagram.com' }, { icon: '💬', label: 'WhatsApp', url: 'https://wa.me/525662771966' }, { icon: '🎵', label: 'TikTok', url: 'https://tiktok.com' }],
+  colors: { rojo: '#B3000C', amarillo: '#E6C200', verde: '#7CFC00' },
+};
+
+let SEO = {
+  title: 'The Monster – Dark Kitchen | Coyoacán CDMX',
+  desc: 'Hamburguesas de terror en Coyoacán, CDMX. Pide a domicilio o recoge en sitio.',
+  canonical: '', robots: 'index,follow',
+  keywords: ['hamburguesas coyoacán', 'dark kitchen cdmx', 'delivery hamburguesas', 'comida a domicilio coyoacán'],
+  ogTitle: 'The Monster – Dark Kitchen', ogDesc: '¿Te atreves a morder el terror?',
+  ogImg: '', twCard: 'summary_large_image',
+  gsc: '', ga: '', gtm: '',
+  siteUrl: '', freq: 'weekly', extraUrls: '',
+  schemaName: 'The Monster Dark Kitchen', schemaTel: '+52 56 6277 1966',
+  schemaAddr: 'Adolfo Ruiz Cortines, Coyoacán, CDMX 04630',
+  schemaPrice: '$$', schemaRating: '4.8',
+};
+
+let products = [
+  { id: 'ms1', cat: 'sencillas', emoji: '🧛', name: 'Milanesa y Queso Oaxaca', price: 70, badge: 'Clásica', description: 'Milanesa de cerdo + queso Oaxaca derretido. Incluye aderezo, guacamole, frijoles, jitomate y picante.', active: true, img: null, sort_order: 0 },
+  { id: 'ms2', cat: 'sencillas', emoji: '🦇', name: 'Pierna y Queso Oaxaca', price: 70, badge: '', description: 'Pierna jugosa con queso Oaxaca fundido.', active: true, img: null, sort_order: 1 },
+  { id: 'ms3', cat: 'sencillas', emoji: '🧟', name: 'Milanesa de Res y Queso', price: 75, badge: 'Vibrant', description: 'Milanesa de res con queso Oaxaca.', active: true, img: null, sort_order: 2 },
+  { id: 'ms4', cat: 'sencillas', emoji: '💀', name: 'Pierna y Queso Amarillo', price: 72, badge: '', description: 'Pierna tierna con queso americano.', active: true, img: null, sort_order: 3 },
+  { id: 'md1', cat: 'dobles', emoji: '👹', name: 'Doble Milanesa Terror', price: 105, badge: 'Vibrant', description: 'Doble milanesa con doble queso Oaxaca.', active: true, img: null, sort_order: 4 },
+  { id: 'md2', cat: 'dobles', emoji: '🔥', name: 'Doble Pierna Zombie', price: 105, badge: '', description: 'Dos capas de pierna con doble queso Oaxaca.', active: true, img: null, sort_order: 5 },
+  { id: 'md3', cat: 'dobles', emoji: '⚡', name: 'Doble Mixta Infernal', price: 110, badge: 'Nuevo', description: 'Milanesa + pierna. Queso Oaxaca doble.', active: true, img: null, sort_order: 6 },
+  { id: 'me1', cat: 'especiales', emoji: '🫀', name: 'La Addams', price: 130, badge: 'Estrella', description: 'Pan negro, queso triple, guacamole, tocino, frijoles, jitomate y salsa secreta.', active: true, img: null, sort_order: 7 },
+  { id: 'me2', cat: 'especiales', emoji: '🧠', name: 'Extreme Zombie', price: 125, badge: '🌶️ Hot', description: 'Doble carne, doble queso, jalapeños, salsa habanero y guacamole.', active: true, img: null, sort_order: 8 },
+  { id: 'me3', cat: 'especiales', emoji: '🕷️', name: 'La Bruja Negra', price: 120, badge: '', description: 'Pan negro, pierna glaseada, queso americano, champiñones y cebolla caramelizada.', active: true, img: null, sort_order: 9 },
+  { id: 'ex1', cat: 'extras', emoji: '🍟', name: 'Papas Monstruosas', price: 45, badge: '', description: 'Papas crujientes sazonadas con especias del inframundo.', active: true, img: null, sort_order: 10 },
+  { id: 'ex2', cat: 'extras', emoji: '🧃', name: 'Bebida del Inframundo', price: 35, badge: '', description: 'Refresco 500ml o agua mineral.', active: true, img: null, sort_order: 11 },
+  { id: 'ex3', cat: 'extras', emoji: '🎃', name: 'Combo Addams', price: 149, badge: 'Ahorra $31', description: 'Hamburguesa sencilla + papas + bebida.', active: true, img: null, sort_order: 12 },
+];
+
+const ORIGIN = { lat: 19.3300, lng: -99.1550, name: 'Adolfo Ruiz Cortines' };
+const COV_RADIO = 3000; // 3 km en metros
+const COLONIAS = [
+  { name: 'Adolfo Ruiz Cortines', cp: ['04630'], lat: 19.3300, lng: -99.1550, nota: 'Punto de origen' },
+  { name: 'Pedregal de Santo Domingo', cp: ['04369'], lat: 19.3315, lng: -99.1650, nota: 'Alta demanda' },
+  { name: 'Pueblo de Los Reyes', cp: ['04330'], lat: 19.3330, lng: -99.1510, nota: 'Residencial' },
+  { name: 'Copilco Universidad', cp: ['04360'], lat: 19.3350, lng: -99.1760, nota: 'Metro Copilco' },
+  { name: 'Copilco El Bajo', cp: ['04340'], lat: 19.3370, lng: -99.1860, nota: 'Eje 10 Sur' },
+  { name: 'Romero de Terreros', cp: ['04310', '04320'], lat: 19.3420, lng: -99.1720, nota: 'Oasis Coyoacán' },
+  { name: 'Ciudad Universitaria', cp: ['04510'], lat: 19.3300, lng: -99.1880, nota: 'Solo accesos principales' },
+  { name: 'Villa Coyoacán', cp: ['04000'], lat: 19.3490, lng: -99.1620, nota: 'Jardín Hidalgo' },
+  { name: 'Del Carmen', cp: ['04100'], lat: 19.3550, lng: -99.1580, nota: 'Museo Frida Kahlo' },
+  { name: 'Barrio de Santa Catarina', cp: ['04010'], lat: 19.3470, lng: -99.1680, nota: 'Calles empedradas' },
+  { name: 'Barrio San Lucas', cp: ['04030'], lat: 19.3450, lng: -99.1500, nota: 'Mixto comercial' },
+  { name: 'La Concepción', cp: ['04020'], lat: 19.3450, lng: -99.1500, nota: 'Tradicional' },
+  { name: 'Ciudad Jardín', cp: ['04370'], lat: 19.3280, lng: -99.1410, nota: 'Tren Ligero' },
+  { name: 'Xotepingo', cp: ['04610'], lat: 19.3220, lng: -99.1380, nota: 'Hab. sur' },
+  { name: 'Ajusco', cp: ['04300'], lat: 19.3180, lng: -99.1580, nota: 'Av. Aztecas' },
+  { name: 'Pedregal de Santa Úrsula', cp: ['04600'], lat: 19.3100, lng: -99.1480, nota: 'Estadio Azteca' },
+];
+
+/* COBERTURA — distancia y geolocalización */
+function haversine(lat1, lng1, lat2, lng2) {
+  const R = 6371000;
+  const toRad = a => a * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+function distFromOrigin(lat, lng) { return haversine(ORIGIN.lat, ORIGIN.lng, lat, lng); }
+function inCoverage(lat, lng) { return distFromOrigin(lat, lng) <= COV_RADIO; }
+function nearestColonia(lat, lng) {
+  let best = null, bestD = Infinity;
+  COLONIAS.forEach(c => { const d = haversine(lat, lng, c.lat, c.lng); if (d < bestD) { bestD = d; best = c; } });
+  return { colonia: best, distance: Math.round(bestD) };
+}
+function getLocation(opts = {}) {
+  return new Promise((res, rej) => {
+    if (!navigator.geolocation) { rej(new Error('Geolocalización no disponible')); return; }
+    navigator.geolocation.getCurrentPosition(
+      p => res({ lat: p.coords.latitude, lng: p.coords.longitude }),
+      e => rej(e), { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000, ...opts }
+    );
+  });
+}
+function formatDist(m) { return m < 1000 ? m + ' m' : (m/1000).toFixed(1) + ' km'; }
+
+/* ═══════════════════════════════════════════════════════════
+   LOAD / SAVE — SUPABASE
+   ═══════════════════════════════════════════════════════════ */
+async function sbLoadAll() {
+  diag('Iniciando carga desde Supabase…');
+  try {
+    /* 1. Products */
+    spProgress(20, 'Cargando platillos…');
+    const prods = await SB.select('products', 'id,cat,emoji,name,price,badge,description,active,img,sort_order&order=sort_order.asc');
+    if (prods && prods.length > 0) {
+      products = prods.map(p => ({
+        id: p.id, cat: p.cat || 'sencillas',
+        emoji: p.emoji || '🍔', name: p.name,
+        price: parseFloat(p.price) || 0,
+        badge: p.badge || '', description: p.description || '',
+        active: p.active !== false, img: p.img || null,
+        sort_order: p.sort_order || 0,
+      }));
+      diag(`${products.length} platillos cargados`, 'ok');
+    } else {
+      diag('Sin platillos en DB, usando defaults', 'warn');
+    }
+
+    /* 2. site_config — cada sección es una fila con key único */
+    spProgress(50, 'Cargando configuración…');
+    const cfgRows = await SB.select('site_config', 'key,value');
+    if (cfgRows && cfgRows.length) {
+      const cfgMap = {};
+      cfgRows.forEach(r => { cfgMap[r.key] = r.value; });
+      // Merge todos los sub-objetos guardados
+      ['general', 'oferta', 'hero', 'nav', 'identidad', 'redes', 'colors'].forEach(k => {
+        if (cfgMap[k] && typeof cfgMap[k] === 'object') Object.assign(CFG, cfgMap[k]);
+      });
+      diag(`${cfgRows.length} claves de config cargadas`, 'ok');
+    }
+
+    /* 3. SEO */
+    spProgress(75, 'Cargando SEO…');
+    const seoRows = await SB.select('seo_config', '*');
+    if (seoRows && seoRows.length) {
+      const s = seoRows[0];
+      if (s.title)        SEO.title        = s.title;
+      if (s.description)  SEO.desc         = s.description;
+      if (s.canonical)    SEO.canonical    = s.canonical;
+      if (s.robots)       SEO.robots       = s.robots;
+      if (s.keywords)     SEO.keywords     = Array.isArray(s.keywords) ? s.keywords : SEO.keywords;
+      if (s.og_title)     SEO.ogTitle      = s.og_title;
+      if (s.og_desc)      SEO.ogDesc       = s.og_desc;
+      if (s.og_img)       SEO.ogImg        = s.og_img;
+      if (s.tw_card)      SEO.twCard       = s.tw_card;
+      if (s.gsc)          SEO.gsc          = s.gsc;
+      if (s.ga)           SEO.ga           = s.ga;
+      if (s.gtm)          SEO.gtm          = s.gtm;
+      if (s.site_url)     SEO.siteUrl      = s.site_url;
+      if (s.freq)         SEO.freq         = s.freq;
+      if (s.extra_urls)   SEO.extraUrls    = s.extra_urls;
+      if (s.schema_name)  SEO.schemaName   = s.schema_name;
+      if (s.schema_tel)   SEO.schemaTel    = s.schema_tel;
+      if (s.schema_addr)  SEO.schemaAddr   = s.schema_addr;
+      if (s.schema_price) SEO.schemaPrice  = s.schema_price;
+      if (s.schema_rating)SEO.schemaRating = s.schema_rating;
+      diag('SEO cargado', 'ok');
+    }
+
+    spProgress(95, 'Listo ✅');
+    dbDots('ok');
+    diag('✅ Carga completa', 'ok');
+    const now = new Date().toLocaleTimeString('es-MX');
+    const sub = document.getElementById('dashSub');
+    if (sub) sub.textContent = 'Supabase activo · última carga: ' + now;
+    return true;
+  } catch (e) {
+    diag('❌ Error carga: ' + e.message, 'err');
+    dbDots('err');
+    return false;
+  }
+}
+
+/* SAVE PRODUCTS */
+async function sbSaveProducts() {
+  try {
+    dbBar(true); dbDots('sync');
+    const rows = products.map((p, i) => ({
+      id: p.id,
+      cat: p.cat,
+      emoji: p.emoji || '🍔',
+      name: p.name,
+      price: parseFloat(p.price),
+      badge: p.badge || '',
+      description: p.description || '',
+      active: p.active,
+      img: p.img && !p.img.startsWith('data:') ? p.img : (p.img && p.img.startsWith('data:') ? p.img : null),
+      sort_order: i,
+    }));
+    await SB.upsert('products', rows);
+    dbBar(false); dbDots('ok');
+    admToastFn('☁️ Platillos guardados en Supabase');
+  } catch (e) {
+    dbBar(false); dbDots('err');
+    admToastFn('❌ ' + e.message.substring(0, 80));
+  }
+}
+
+/* SAVE CFG section */
+async function sbSaveCFG(section, data) {
+  try {
+    dbBar(true); dbDots('sync');
+    await SB.upsert('site_config', [{ key: section, value: data }]);
+    dbBar(false); dbDots('ok');
+  } catch (e) {
+    dbBar(false); dbDots('err');
+    admToastFn('❌ DB: ' + e.message.substring(0, 70));
+    throw e;
+  }
+}
+
+/* SAVE SEO */
+async function sbSaveSEO() {
+  try {
+    dbBar(true); dbDots('sync');
+    await SB.upsert('seo_config', [{
+      id: 1,
+      title: SEO.title, description: SEO.desc,
+      canonical: SEO.canonical, robots: SEO.robots,
+      keywords: SEO.keywords,
+      og_title: SEO.ogTitle, og_desc: SEO.ogDesc, og_img: SEO.ogImg,
+      tw_card: SEO.twCard, gsc: SEO.gsc, ga: SEO.ga, gtm: SEO.gtm,
+      site_url: SEO.siteUrl, freq: SEO.freq, extra_urls: SEO.extraUrls,
+      schema_name: SEO.schemaName, schema_tel: SEO.schemaTel,
+      schema_addr: SEO.schemaAddr, schema_price: SEO.schemaPrice,
+      schema_rating: SEO.schemaRating,
+    }]);
+    dbBar(false); dbDots('ok');
+  } catch (e) {
+    dbBar(false); dbDots('err');
+    admToastFn('❌ SEO DB: ' + e.message.substring(0, 70));
+    throw e;
+  }
+}
+
+/* SYNC ALL */
+async function sbSyncAll() {
+  dbDots('sync'); dbBar(true);
+  try {
+    await sbSaveProducts();
+    await sbSaveCFG('general', { wa: CFG.wa, mapsKey: CFG.mapsKey, footerDesc: CFG.footerDesc, sello: CFG.sello, copy: CFG.copy, horario: CFG.horario });
+    await sbSaveCFG('oferta', { ofTag: CFG.ofTag, ofTitle: CFG.ofTitle, ofDesc: CFG.ofDesc, ofPold: CFG.ofPold, ofPnew: CFG.ofPnew, ofRating: CFG.ofRating, ofBtn: CFG.ofBtn });
+    await sbSaveCFG('hero', { heroBadge: CFG.heroBadge, heroTitle: CFG.heroTitle, heroSlogan: CFG.heroSlogan, heroSub: CFG.heroSub, heroBtn1: CFG.heroBtn1, heroBtn2: CFG.heroBtn2, heroEmoji: CFG.heroEmoji, heroImgSrc: CFG.heroImgSrc });
+    await sbSaveCFG('nav', { navCta: CFG.navCta, navCtaHref: CFG.navCtaHref, navLinks: CFG.navLinks });
+    await sbSaveCFG('identidad', { nombre: CFG.nombre, logoSrc: CFG.logoSrc });
+    await sbSaveCFG('redes', { redes: CFG.redes });
+    await sbSaveCFG('colors', { colors: CFG.colors });
+    await sbSaveSEO();
+    dbBar(false); dbDots('ok');
+    admToastFn('☁️ Todo sincronizado con Supabase ✅');
+  } catch (e) {
+    dbBar(false); dbDots('err');
+    admToastFn('❌ Sync: ' + e.message.substring(0, 60));
+  }
+}
+
+/* DIAGNÓSTICO */
+async function runDiag() {
+  document.getElementById('diagPanel').classList.add('open');
+  diag('═══ DIAGNÓSTICO SUPABASE ═══', 'ok');
+  diag('URL: ' + SB_URL);
+  diag('Probando conexión…');
+  try {
+    const r = await SB.select('products', 'id&limit=1');
+    diag('✅ products: OK (' + (r ? r.length : 0) + ' rows)', 'ok');
+  } catch (e) { diag('❌ products: ' + e.message, 'err'); }
+  try {
+    const r = await SB.select('site_config', 'key&limit=1');
+    diag('✅ site_config: OK (' + (r ? r.length : 0) + ' rows)', 'ok');
+  } catch (e) { diag('❌ site_config: ' + e.message, 'err'); }
+  try {
+    const r = await SB.select('seo_config', 'id&limit=1');
+    diag('✅ seo_config: OK (' + (r ? r.length : 0) + ' rows)', 'ok');
+  } catch (e) { diag('❌ seo_config: ' + e.message, 'err'); }
+  try {
+    const r = await SB.select('admin_users', 'username&limit=1');
+    diag('✅ admin_users: OK (' + (r ? r.length : 0) + ' rows)', 'ok');
+  } catch (e) { diag('❌ admin_users: ' + e.message, 'err'); }
+  diag('═══ FIN DIAGNÓSTICO ═══', 'ok');
+}
+
+/* EXPORT / IMPORT */
+function exportJSON() {
+  const d = JSON.stringify({ products, cfg: CFG, seo: SEO, date: new Date().toISOString() }, null, 2);
+  const b = new Blob([d], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(b);
+  a.download = 'the-monster-backup-' + Date.now() + '.json'; a.click();
+  admToastFn('📤 Backup exportado');
+}
+function importJSON(inp) {
+  const f = inp.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = async e => {
+    try {
+      const d = JSON.parse(e.target.result);
+      if (d.products) products = d.products;
+      if (d.cfg) Object.assign(CFG, d.cfg);
+      if (d.seo) Object.assign(SEO, d.seo);
+      await sbSyncAll(); applyAll(); renderProducts('all'); renderAdmProds();
+      admToastFn('📥 Importado y sincronizado');
+    } catch (err) { admToastFn('❌ Error: ' + err.message); }
+  };
+  r.readAsText(f); inp.value = '';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   AUTH
+   ═══════════════════════════════════════════════════════════ */
+const AUTH = { _s: null, _a: 0, _lk: 0, MAX: 5, LOCK: 5 * 60 * 1000, _shakeIv: null, _lockIv: null };
+function hs(s) { let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = (h * 0x01000193) >>> 0; } return h.toString(16); }
+function isLocked() { if (AUTH._lk && Date.now() < AUTH._lk) return true; if (AUTH._lk && Date.now() >= AUTH._lk) { AUTH._lk = 0; AUTH._a = 0; } return false; }
+
+async function doLogin() {
+  if (isLocked()) { showLoginErr('🔒 Acceso bloqueado.'); return; }
+  const u = document.getElementById('loginUser').value.trim().toLowerCase();
+  const p = document.getElementById('loginPass').value;
+  if (!u || !p) { showLoginErr('Ingresa usuario y contraseña'); return; }
+  // Default: admin / monster2024
+  const defaultOk = u === 'admin' && hs(p) === hs('monster2024');
+  let dbOk = false;
+  try {
+    const rows = await SB.selectWhere('admin_users', 'username', u, 'pw_hash');
+    dbOk = rows && rows.length > 0 && rows[0].pw_hash === hs(p);
+  } catch (e) { diag('Auth DB error: ' + e.message, 'warn'); }
+  if (dbOk || defaultOk) {
+    AUTH._a = 0; AUTH._s = { user: u, ts: Date.now() };
+    // Ensure hash in DB
+    try { await SB.upsert('admin_users', [{ username: u, pw_hash: hs(p) }]); } catch (_) {}
+    closeLogin(); document.getElementById('adminPanel').classList.add('open'); updateStats(); updateFabs();
+    admToastFn('✅ Bienvenido, ' + u);
+  } else {
+    AUTH._a++;
+    const left = AUTH.MAX - AUTH._a;
+    if (AUTH._a >= AUTH.MAX) { AUTH._lk = Date.now() + AUTH.LOCK; showLoginErr('Bloqueado 5 minutos.'); startLockTimer(); }
+    else showLoginErr(`Datos incorrectos. ${left} intento${left !== 1 ? 's' : ''} restante${left !== 1 ? 's' : ''}.`);
+    const b = document.getElementById('loginBox'); b.style.transition = 'transform .08s';
+    const sv = [-8, 8, -5, 5, 0]; let si = 0;
+    if (AUTH._shakeIv) clearInterval(AUTH._shakeIv);
+    AUTH._shakeIv = setInterval(() => { b.style.transform = `translateX(${sv[si++]}px)`; if (si >= sv.length) { clearInterval(AUTH._shakeIv); AUTH._shakeIv = null; b.style.transform = ''; } }, 70);
+  }
+}
+function startLockTimer() { const el = document.getElementById('lockMsg'); const tx = document.getElementById('lockTxt'); el.style.display = 'block'; if (AUTH._lockIv) clearInterval(AUTH._lockIv); AUTH._lockIv = setInterval(() => { if (!isLocked() || !document.getElementById('loginModal').classList.contains('open')) { el.style.display = 'none'; clearInterval(AUTH._lockIv); AUTH._lockIv = null; return; } tx.textContent = `🔒 Desbloqueo en ${Math.ceil((AUTH._lk - Date.now()) / 1000)}s`; }, 1000); }
+function showLoginErr(m) { const e = document.getElementById('loginErr'); e.textContent = m; e.style.display = 'block'; }
+function closeLogin() { document.getElementById('loginModal').classList.remove('open'); document.getElementById('loginErr').style.display = 'none'; document.getElementById('loginUser').value = ''; document.getElementById('loginPass').value = ''; if (AUTH._shakeIv) { clearInterval(AUTH._shakeIv); AUTH._shakeIv = null; document.getElementById('loginBox').style.transform = ''; } if (AUTH._lockIv) { clearInterval(AUTH._lockIv); AUTH._lockIv = null; document.getElementById('lockMsg').style.display = 'none'; } }
+function doLogout() { AUTH._s = null; document.getElementById('adminPanel').classList.remove('open'); updateFabs(); admToastFn('👋 Sesión cerrada'); }
+function updateFabs() { const on = !!AUTH._s; document.getElementById('adminFab').style.display = on ? '' : 'none'; document.getElementById('diagFab').style.display = on ? '' : 'none'; }
+function togglePass() { const i = document.getElementById('loginPass'); const b = document.getElementById('eyeBtn'); i.type = i.type === 'password' ? 'text' : 'password'; b.textContent = i.type === 'password' ? '👁' : '🙈'; }
+function openChgPw() { ['pwCur', 'pwNew', 'pwCfm'].forEach(id => document.getElementById(id).value = ''); document.getElementById('pwErr').style.display = 'none'; document.getElementById('chgPwModal').classList.add('open'); }
+async function doChangePw() {
+  const cur = document.getElementById('pwCur').value; const nw = document.getElementById('pwNew').value; const cf = document.getElementById('pwCfm').value;
+  const e = document.getElementById('pwErr'); const u = AUTH._s?.user; if (!u) return;
+  if (nw.length < 6) { e.textContent = '⚠️ Mínimo 6 caracteres'; e.style.display = 'block'; return; }
+  if (nw !== cf) { e.textContent = '⚠️ No coinciden'; e.style.display = 'block'; return; }
+  try {
+    const rows = await SB.selectWhere('admin_users', 'username', u, 'pw_hash');
+    const dbHash = rows && rows.length ? rows[0].pw_hash : hs('monster2024');
+    if (dbHash !== hs(cur)) { e.textContent = '❌ Contraseña actual incorrecta'; e.style.display = 'block'; return; }
+    await SB.upsert('admin_users', [{ username: u, pw_hash: hs(nw) }]);
+    document.getElementById('chgPwModal').classList.remove('open');
+    admToastFn('🔑 Contraseña actualizada en Supabase');
+  } catch (err) { e.textContent = '❌ Error: ' + err.message; e.style.display = 'block'; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN NAV
+   ═══════════════════════════════════════════════════════════ */
+let currentSec = 'dashboard';
+function admGo(id, el) {
+  currentSec = id;
+  document.querySelectorAll('.adm-sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('#deskNav .adm-ni').forEach(i => i.classList.remove('active'));
+  document.getElementById('adm-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+  loadSec(id);
+}
+function admGoMob(id, el) {
+  admGo(id, document.querySelector('[data-s=' + id + ']'));
+  document.getElementById('curSec').textContent = el.textContent.trim();
+  document.querySelectorAll('#admMobNav .adm-ni').forEach(i => i.classList.remove('active'));
+  el.classList.add('active'); toggleMobAdm(false);
+}
+function toggleMobAdm(f) { const n = document.getElementById('admMobNav'); const b = document.getElementById('mobMenuBtn'); const o = typeof f === 'boolean' ? f : !n.classList.contains('open'); n.classList.toggle('open', o); b.setAttribute('aria-expanded', o); }
+function loadSec(id) {
+  if (id === 'dashboard') updateStats();
+  if (id === 'productos') renderAdmProds();
+  if (id === 'ofertas') loadOfertas();
+  if (id === 'hero') loadHeroForm();
+  if (id === 'navconf') loadNavForm();
+  if (id === 'identidad') loadIdentidad();
+  if (id === 'redes') renderRedes();
+  if (id === 'seo') loadSEOForm();
+  if (id === 'config') loadConfig();
+}
+function openAdmin() { if (AUTH._s) { document.getElementById('adminPanel').classList.add('open'); updateStats(); renderAdmCobertura(); } else { document.getElementById('loginModal').classList.add('open'); setTimeout(() => document.getElementById('loginUser').focus(), 60); } }
+function closeAdmin() { document.getElementById('adminPanel').classList.remove('open'); }
+function updateStats() { document.getElementById('st-total').textContent = products.length; document.getElementById('st-active').textContent = products.filter(p => p.active).length; document.getElementById('st-cats').textContent = [...new Set(products.map(p => p.cat))].length; document.getElementById('st-soc').textContent = CFG.redes.length; }
+function renderAdmCobertura() {
+  const el = document.getElementById('admColoniasList');
+  if (!el) return;
+  el.innerHTML = COLONIAS.map(c => { const d = distFromOrigin(c.lat, c.lng); const ok = d <= COV_RADIO; return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:' + (ok ? 'rgba(124,252,0,.05)' : 'rgba(179,0,12,.05)') + ';border-radius:var(--rs);border:1px solid ' + (ok ? 'rgba(124,252,0,.15)' : 'rgba(179,0,12,.15)') + ';">' + '<span style="font-size:.82rem;">' + esc(c.name) + ' <small style="opacity:.5">CP ' + c.cp.join('/') + '</small></span>' + '<span style="font-size:.75rem;color:' + (ok ? 'var(--verde)' : '#ff6666') + ';">' + formatDist(d) + (ok ? ' ✅' : ' ⚠️') + '</span></div>'; }).join('');
+  const total = COLONIAS.length;
+  const dentro = COLONIAS.filter(c => distFromOrigin(c.lat, c.lng) <= COV_RADIO).length;
+  const fuera = total - dentro;
+  const res = document.getElementById('admCobResumen');
+  if (res) res.innerHTML = '🏠 Origen: <strong>Adolfo Ruiz Cortines</strong> (19.3300, -99.1550)<br>📏 Radio: <strong>' + formatDist(COV_RADIO) + '</strong><br>✅ Dentro: <strong style="color:var(--verde)">' + dentro + '</strong> colonias<br>❌ Fuera: <strong style="color:#ff6666">' + fuera + '</strong> colonias<br>📍 Total: <strong>' + total + '</strong> colonias';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRODUCTS ADMIN
+   ═══════════════════════════════════════════════════════════ */
+function renderAdmProds() {
+  document.getElementById('admProdList').innerHTML = products.map((p, i) => `
+    <div class="prod-row">
+      <div class="pr-img">${p.img ? `<img src="${esc(p.img)}" alt="${esc(p.name)}"/>` : (esc(p.emoji) || '🍔')}</div>
+      <div class="pr-info"><strong>${esc(p.name)}</strong><span>${esc(p.cat)}${p.badge ? ' · ' + esc(p.badge) : ''}</span></div>
+      <div class="pr-price">$${p.price}</div>
+      <button class="toggle ${p.active ? 'on' : ''}" onclick="toggleProd(${i})" title="${p.active ? 'Activo' : 'Oculto'}"></button>
+      <div style="display:flex;gap:6px;"><button class="adm-btn ghost sm" onclick="openProdModal(${i})">✏️</button><button class="adm-btn danger sm" onclick="deleteProd(${i})">🗑</button></div>
+    </div>`).join('');
+}
+async function toggleProd(i) {
+  products[i].active = !products[i].active;
+  renderAdmProds(); renderProducts(currentCat);
+  try {
+    await SB.upsert('products', [{ id: products[i].id, cat: products[i].cat, emoji: products[i].emoji, name: products[i].name, price: products[i].price, badge: products[i].badge || '', description: products[i].description || '', active: products[i].active, img: products[i].img, sort_order: i }]);
+    admToastFn(products[i].active ? '☁️ Activado' : '☁️ Oculto');
+  } catch (e) { admToastFn('❌ ' + e.message.substring(0, 60)); }
+}
+async function deleteProd(i) {
+  if (!confirm(`¿Eliminar "${products[i].name}"?`)) return;
+  const id = products[i].id; products.splice(i, 1);
+  renderAdmProds(); renderProducts(currentCat);
+  try { await SB.delete('products', 'id', id); admToastFn('☁️ Platillo eliminado'); }
+  catch (e) { admToastFn('❌ ' + e.message.substring(0, 60)); }
+}
+let editIdx = null, pmImg = null, _pmFile = null;
+function openProdModal(idx) {
+  editIdx = typeof idx === 'number' ? idx : null; pmImg = null; _pmFile = null;
+  const p = editIdx !== null ? products[editIdx] : {};
+  document.getElementById('pmTitle').textContent = editIdx !== null ? 'Editar Platillo' : 'Nuevo Platillo';
+  document.getElementById('pm-name').value = p.name || '';
+  document.getElementById('pm-price').value = p.price || '';
+  document.getElementById('pm-cat').value = p.cat || 'sencillas';
+  document.getElementById('pm-desc').value = p.description || '';
+  document.getElementById('pm-emoji').value = p.emoji || '🍔';
+  document.getElementById('pm-badge').value = p.badge || '';
+  document.getElementById('pm-active').checked = p.active !== false;
+  const prev = document.getElementById('pmPrev');
+  if (p.img) { pmImg = p.img; prev.innerHTML = `<img src="${pmImg}" alt="prev"/><input type="file" id="pmFile" accept="image/*" style="display:none" onchange="loadProdImg(this)"/>`; }
+  else prev.innerHTML = `<div class="ph">📷 Click para subir foto</div><input type="file" id="pmFile" accept="image/*" style="display:none" onchange="loadProdImg(this)"/>`;
+  document.getElementById('prodModal').classList.add('open');
+}
+function closeProdModal() { document.getElementById('prodModal').classList.remove('open'); }
+function loadProdImg(inp) {
+  const f = inp.files[0]; if (!f) return;
+  _pmFile = f;
+  const r = new FileReader();
+  r.onload = e => {
+    pmImg = e.target.result;
+    document.getElementById('pmPrev').innerHTML = `<img src="${pmImg}" alt="prev"/><input type="file" id="pmFile" accept="image/*" style="display:none" onchange="loadProdImg(this)"/>`;
+  };
+  r.readAsDataURL(f);
+}
+async function saveProd() {
+  const name = document.getElementById('pm-name').value.trim();
+  const price = parseFloat(document.getElementById('pm-price').value);
+  if (!name || !price) { admToastFn('⚠️ Nombre y precio requeridos'); return; }
+  const prodId = editIdx !== null ? products[editIdx].id : 'p' + Date.now();
+  let imgUrl = pmImg;
+  if (_pmFile && imgUrl && imgUrl.startsWith('data:')) {
+    try {
+      const ext = _pmFile.name.split('.').pop().replace(/[^a-zA-Z0-9]/g, '');
+      const path = 'products/' + prodId + '.' + (ext || 'jpg');
+      imgUrl = await sbUpload(path, _pmFile);
+    } catch (e) { admToastFn('⚠️ Error subir img: ' + e.message); return; }
+  }
+  const row = { id: prodId, name, price, cat: document.getElementById('pm-cat').value, description: document.getElementById('pm-desc').value, emoji: document.getElementById('pm-emoji').value || '🍔', badge: document.getElementById('pm-badge').value, active: document.getElementById('pm-active').checked, img: imgUrl, sort_order: editIdx !== null ? editIdx : products.length };
+  if (editIdx !== null) products[editIdx] = { ...row }; else products.push({ ...row });
+  _pmFile = null;
+  closeProdModal(); renderAdmProds(); renderProducts(currentCat);
+  try { await SB.upsert('products', [row]); admToastFn('☁️ Platillo guardado en Supabase'); }
+  catch (e) { admToastFn('❌ ' + e.message.substring(0, 70)); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTION SAVERS
+   ═══════════════════════════════════════════════════════════ */
+/* OFERTA */
+function loadOfertas() { document.getElementById('of-tag').value = CFG.ofTag; document.getElementById('of-title').value = CFG.ofTitle; document.getElementById('of-desc').value = CFG.ofDesc; document.getElementById('of-pold').value = CFG.ofPold; document.getElementById('of-pnew').value = CFG.ofPnew; document.getElementById('of-rating').value = CFG.ofRating; document.getElementById('of-btn').value = CFG.ofBtn; }
+async function saveOfertas() { Object.assign(CFG, { ofTag: document.getElementById('of-tag').value, ofTitle: document.getElementById('of-title').value, ofDesc: document.getElementById('of-desc').value, ofPold: document.getElementById('of-pold').value, ofPnew: document.getElementById('of-pnew').value, ofRating: document.getElementById('of-rating').value, ofBtn: document.getElementById('of-btn').value }); applyOfertas(); await sbSaveCFG('oferta', { ofTag: CFG.ofTag, ofTitle: CFG.ofTitle, ofDesc: CFG.ofDesc, ofPold: CFG.ofPold, ofPnew: CFG.ofPnew, ofRating: CFG.ofRating, ofBtn: CFG.ofBtn }); admToastFn('☁️ Oferta guardada'); }
+function applyOfertas() { document.getElementById('siteOfTag').textContent = CFG.ofTag; document.getElementById('siteOfTitle').textContent = CFG.ofTitle; document.getElementById('siteOfDesc').innerHTML = CFG.ofDesc.replace(/\n/g, '<br>'); document.getElementById('siteOfPold').textContent = '$' + CFG.ofPold; document.getElementById('siteOfPnew').textContent = '$' + CFG.ofPnew; document.getElementById('siteOfRating').textContent = CFG.ofRating + ' — Valoración Vibrant'; const btn = document.getElementById('siteOfBtn'); btn.textContent = CFG.ofBtn; const pn = parseFloat(CFG.ofPnew) || 0; btn.onclick = () => addToCart({ id: 'combo-oferta', name: CFG.ofTitle, price: pn, emoji: '🎃', cat: 'extras', img: null }); }
+
+/* HERO */
+let heroImg = null, _heroFile = null;
+function loadHeroForm() { document.getElementById('hero-badge-txt').value = CFG.heroBadge; document.getElementById('hero-title-txt').value = CFG.heroTitle; document.getElementById('hero-slogan-txt').value = CFG.heroSlogan; document.getElementById('hero-sub-txt').value = CFG.heroSub; document.getElementById('hero-btn1').value = CFG.heroBtn1; document.getElementById('hero-btn2').value = CFG.heroBtn2; document.getElementById('hero-emoji').value = CFG.heroEmoji; if (CFG.heroImgSrc) { const p = document.getElementById('heroPrev'); p.innerHTML = `<img src="${esc(CFG.heroImgSrc)}" alt="hero"/><input type="file" id="heroFile" accept="image/*" style="display:none" onchange="loadHeroImg(this)"/>`; } }
+function loadHeroImg(inp) {
+  const f = inp.files[0]; if (!f) return;
+  _heroFile = f;
+  const r = new FileReader();
+  r.onload = e => {
+    heroImg = e.target.result;
+    document.getElementById('heroPrev').innerHTML = `<img src="${heroImg}" alt="hero"/><input type="file" id="heroFile" accept="image/*" style="display:none" onchange="loadHeroImg(this)"/>`;
+  };
+  r.readAsDataURL(f);
+}
+async function saveHero() {
+  Object.assign(CFG, { heroBadge: document.getElementById('hero-badge-txt').value, heroTitle: document.getElementById('hero-title-txt').value, heroSlogan: document.getElementById('hero-slogan-txt').value, heroSub: document.getElementById('hero-sub-txt').value, heroBtn1: document.getElementById('hero-btn1').value, heroBtn2: document.getElementById('hero-btn2').value, heroEmoji: document.getElementById('hero-emoji').value });
+  if (_heroFile) {
+    try {
+      const ext = _heroFile.name.split('.').pop().replace(/[^a-zA-Z0-9]/g, '');
+      const path = 'hero/hero.' + (ext || 'jpg');
+      CFG.heroImgSrc = await sbUpload(path, _heroFile);
+      _heroFile = null;
+    } catch (e) { admToastFn('⚠️ Error subir hero: ' + e.message); return; }
+  }
+  applyHero();
+  await sbSaveCFG('hero', { heroBadge: CFG.heroBadge, heroTitle: CFG.heroTitle, heroSlogan: CFG.heroSlogan, heroSub: CFG.heroSub, heroBtn1: CFG.heroBtn1, heroBtn2: CFG.heroBtn2, heroEmoji: CFG.heroEmoji, heroImgSrc: CFG.heroImgSrc });
+  admToastFn('☁️ Hero guardado');
+}
+function applyHero() { document.getElementById('heroBadge').textContent = CFG.heroBadge; document.getElementById('heroH1').innerHTML = CFG.heroTitle.replace(/\n/g, '<br>'); document.getElementById('heroSlogan').textContent = CFG.heroSlogan; document.getElementById('heroSub').textContent = CFG.heroSub; document.getElementById('heroBtn1').textContent = CFG.heroBtn1; document.getElementById('heroBtn2').textContent = CFG.heroBtn2; const v = document.getElementById('heroVisual'); if (CFG.heroImgSrc) { v.innerHTML = `<img src="${esc(CFG.heroImgSrc)}" alt="hero"/>`; v.style.fontSize = ''; } else { v.innerHTML = ''; v.style.fontSize = 'clamp(8rem,18vw,13rem)'; v.textContent = CFG.heroEmoji; } }
+
+/* NAV */
+function loadNavForm() { document.getElementById('nav-cta-txt').value = CFG.navCta; document.getElementById('nav-cta-href').value = CFG.navCtaHref; renderNavLinks(); }
+function renderNavLinks() { document.getElementById('navLinksList').innerHTML = CFG.navLinks.map((l, i) => `<div style="display:flex;gap:8px;margin-bottom:9px;align-items:center;flex-wrap:wrap;"><input class="adm-inp" value="${esc(l.label)}" style="flex:1;min-width:90px" onchange="CFG.navLinks[${i}].label=this.value" placeholder="Texto"/><input class="adm-inp" value="${esc(l.href)}" style="flex:1;min-width:90px" onchange="CFG.navLinks[${i}].href=this.value" placeholder="href"/><button class="adm-btn danger sm" onclick="CFG.navLinks.splice(${i},1);renderNavLinks()">✕</button></div>`).join(''); }
+function addNavLink() { CFG.navLinks.push({ label: 'Nuevo', href: '#' }); renderNavLinks(); }
+async function saveNav() { CFG.navCta = document.getElementById('nav-cta-txt').value; CFG.navCtaHref = document.getElementById('nav-cta-href').value; applyNav(); await sbSaveCFG('nav', { navCta: CFG.navCta, navCtaHref: CFG.navCtaHref, navLinks: CFG.navLinks }); admToastFn('☁️ Navegación guardada'); }
+function applyNav() { const ul = document.getElementById('navLinks'); ul.innerHTML = CFG.navLinks.map(l => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`).join(''); const li = document.createElement('li'); li.innerHTML = `<a href="${esc(CFG.navCtaHref)}" class="nav-cta" onclick="openCart();return false;">${esc(CFG.navCta)}</a>`; ul.appendChild(li); }
+
+/* IDENTIDAD */
+let logoData = null, _logoFile = null;
+function loadIdentidad() { document.getElementById('id-nombre').value = CFG.nombre; document.getElementById('col-rojo').value = CFG.colors.rojo; document.getElementById('hex-rojo').textContent = CFG.colors.rojo; document.getElementById('col-amarillo').value = CFG.colors.amarillo; document.getElementById('hex-amarillo').textContent = CFG.colors.amarillo; document.getElementById('col-verde').value = CFG.colors.verde; document.getElementById('hex-verde').textContent = CFG.colors.verde; if (CFG.logoSrc) document.getElementById('logoPrev').innerHTML = `<img src="${esc(CFG.logoSrc)}" alt="logo"/><input type="file" id="logoFile" accept="image/*" style="display:none" onchange="loadLogo(this)"/>`; }
+function loadLogo(inp) {
+  const f = inp.files[0]; if (!f) return;
+  _logoFile = f;
+  const r = new FileReader();
+  r.onload = e => {
+    logoData = e.target.result;
+    document.getElementById('logoPrev').innerHTML = `<img src="${logoData}" alt="logo"/><input type="file" id="logoFile" accept="image/*" style="display:none" onchange="loadLogo(this)"/>`;
+  };
+  r.readAsDataURL(f);
+}
+async function saveIdentidad() {
+  CFG.nombre = document.getElementById('id-nombre').value;
+  if (_logoFile) {
+    try {
+      const ext = _logoFile.name.split('.').pop().replace(/[^a-zA-Z0-9]/g, '');
+      const path = 'logo/logo.' + (ext || 'png');
+      CFG.logoSrc = await sbUpload(path, _logoFile);
+      _logoFile = null;
+    } catch (e) { admToastFn('⚠️ Error subir logo: ' + e.message); return; }
+  }
+  applyIdentidad();
+  await sbSaveCFG('identidad', { nombre: CFG.nombre, logoSrc: CFG.logoSrc });
+  admToastFn('☁️ Identidad guardada');
+}
+function applyIdentidad() { const parts = CFG.nombre.trim().split(' '); const last = parts.length > 1 ? parts.pop() : ''; document.getElementById('navName').innerHTML = esc(parts.join(' ')) + (last ? ' <em>' + esc(last) + '</em>' : ''); const ic = document.getElementById('navLogoIcon'); if (CFG.logoSrc) ic.innerHTML = `<img src="${esc(CFG.logoSrc)}" alt="logo" style="width:100%;height:100%;border-radius:50%;object-fit:cover"/>`; else ic.textContent = '🦷'; }
+function previewColors() { document.documentElement.style.setProperty('--rojo', document.getElementById('col-rojo').value); document.documentElement.style.setProperty('--amarillo', document.getElementById('col-amarillo').value); document.documentElement.style.setProperty('--verde', document.getElementById('col-verde').value); admToastFn('👁 Preview activo'); }
+async function applyColors() { CFG.colors.rojo = document.getElementById('col-rojo').value; CFG.colors.amarillo = document.getElementById('col-amarillo').value; CFG.colors.verde = document.getElementById('col-verde').value; document.documentElement.style.setProperty('--rojo', CFG.colors.rojo); document.documentElement.style.setProperty('--amarillo', CFG.colors.amarillo); document.documentElement.style.setProperty('--verde', CFG.colors.verde); await sbSaveCFG('colors', { colors: CFG.colors }); admToastFn('☁️ Colores aplicados'); }
+
+/* REDES */
+function renderRedes() { document.getElementById('redesList').innerHTML = CFG.redes.map((r, i) => `<div class="soc-row"><input class="adm-inp" value="${esc(r.icon)}" style="width:52px;text-align:center" onchange="CFG.redes[${i}].icon=this.value" placeholder="📱"/><input class="adm-inp" value="${esc(r.label)}" style="flex:1;min-width:80px" onchange="CFG.redes[${i}].label=this.value" placeholder="Instagram"/><input class="adm-inp" value="${esc(r.url)}" style="flex:2;min-width:120px" onchange="CFG.redes[${i}].url=this.value" placeholder="https://..."/><button class="adm-btn danger sm" onclick="CFG.redes.splice(${i},1);renderRedes()">✕</button></div>`).join(''); }
+function addRed() { CFG.redes.push({ icon: '🌐', label: 'Red Social', url: 'https://' }); renderRedes(); }
+async function saveRedes() { applyRedes(); await sbSaveCFG('redes', { redes: CFG.redes }); admToastFn('☁️ Redes guardadas'); }
+function applyRedes() { document.getElementById('footerSocials').innerHTML = CFG.redes.map(r => `<a class="soc-btn" href="${esc(r.url)}" target="_blank" rel="noopener" title="${esc(r.label)}">${esc(r.icon)}</a>`).join(''); }
+
+/* CONFIG */
+function loadConfig() { document.getElementById('cfg-wa').value = CFG.wa; document.getElementById('cfg-maps').value = CFG.mapsKey; document.getElementById('cfg-desc').value = CFG.footerDesc; document.getElementById('cfg-sello').value = CFG.sello; document.getElementById('cfg-copy').value = CFG.copy; document.getElementById('cfg-hor').value = CFG.horario; }
+async function saveConfig() { CFG.wa = document.getElementById('cfg-wa').value.trim(); CFG.mapsKey = document.getElementById('cfg-maps').value.trim(); CFG.footerDesc = document.getElementById('cfg-desc').value; CFG.sello = document.getElementById('cfg-sello').value; CFG.copy = document.getElementById('cfg-copy').value; CFG.horario = document.getElementById('cfg-hor').value; applyConfig(); await sbSaveCFG('general', { wa: CFG.wa, mapsKey: CFG.mapsKey, footerDesc: CFG.footerDesc, sello: CFG.sello, copy: CFG.copy, horario: CFG.horario }); admToastFn('☁️ Configuración guardada'); }
+function applyConfig() { document.getElementById('footerDesc').textContent = CFG.footerDesc; document.getElementById('footerSello').textContent = CFG.sello; document.getElementById('footerCopy').textContent = CFG.copy; document.getElementById('footerWa').href = 'https://wa.me/' + CFG.wa; document.getElementById('footerHorario').innerHTML = CFG.horario.split('\n').map(l => `<li><a href="#">${l}</a></li>`).join(''); if (CFG.mapsKey) document.getElementById('mapFrame').src = `https://www.google.com/maps/embed/v1/place?key=${CFG.mapsKey}&q=Adolfo+Ruiz+Cortines,Coyoacan,CDMX&zoom=13`; }
+
+/* ═══════════════════════════════════════════════════════════
+   SEO
+   ═══════════════════════════════════════════════════════════ */
+function loadSEOForm() { document.getElementById('seo-title').value = SEO.title; document.getElementById('seo-desc').value = SEO.desc; document.getElementById('seo-canonical').value = SEO.canonical; document.getElementById('seo-robots').value = SEO.robots; document.getElementById('seo-og-title').value = SEO.ogTitle; document.getElementById('seo-og-desc').value = SEO.ogDesc; document.getElementById('seo-og-img').value = SEO.ogImg; document.getElementById('seo-tw-card').value = SEO.twCard; document.getElementById('seo-gsc').value = SEO.gsc; document.getElementById('seo-ga').value = SEO.ga; document.getElementById('seo-gtm').value = SEO.gtm; document.getElementById('seo-siteurl').value = SEO.siteUrl; document.getElementById('seo-freq').value = SEO.freq; document.getElementById('seo-extra-urls').value = SEO.extraUrls; document.getElementById('sch-name').value = SEO.schemaName; document.getElementById('sch-tel').value = SEO.schemaTel; document.getElementById('sch-addr').value = SEO.schemaAddr; document.getElementById('sch-price').value = SEO.schemaPrice; document.getElementById('sch-rating').value = SEO.schemaRating; seoCount('seo-title', 'stc', 60); seoCount('seo-desc', 'sdc', 160); renderKws(); updateSeoScore(); }
+function seoCount(fId, cId, max) { const v = document.getElementById(fId)?.value || ''; const c = document.getElementById(cId); if (!c) return; c.textContent = v.length; c.style.color = v.length > max ? '#ff6666' : v.length > max * .8 ? 'var(--amarillo)' : 'rgba(255,255,255,.4)'; }
+function renderKws() { const el = document.getElementById('kwList'); if (!el) return; el.innerHTML = SEO.keywords.map((k, i) => `<div class="seo-kw"><span>${k}</span><button onclick="removeKw(${i})">✕</button></div>`).join(''); updateSeoScore(); }
+function addKw() { const inp = document.getElementById('seo-kw-input'); const v = inp.value.trim(); if (!v) return; if (SEO.keywords.includes(v)) { admToastFn('⚠️ Ya existe'); return; } SEO.keywords.push(v); inp.value = ''; renderKws(); }
+function removeKw(i) { SEO.keywords.splice(i, 1); renderKws(); }
+function updateSeoScore() { let s = 0; const t = document.getElementById('seo-title')?.value || SEO.title; const d = document.getElementById('seo-desc')?.value || SEO.desc; if (t.length >= 30 && t.length <= 60) s += 20; else if (t.length > 0) s += 10; if (d.length >= 100 && d.length <= 160) s += 20; else if (d.length > 0) s += 10; if (SEO.keywords.length >= 3) s += 15; else if (SEO.keywords.length > 0) s += 7; if (document.getElementById('seo-og-title')?.value || SEO.ogTitle) s += 10; if (document.getElementById('seo-og-img')?.value || SEO.ogImg) s += 10; if (document.getElementById('seo-canonical')?.value || SEO.canonical) s += 10; if (document.getElementById('seo-gsc')?.value || SEO.gsc) s += 5; if (document.getElementById('sch-name')?.value || SEO.schemaName) s += 10; const el = document.getElementById('seoCircle'); const tx = document.getElementById('seoScoreTxt'); if (!el) return; el.textContent = s; el.style.borderColor = s >= 80 ? 'var(--verde)' : s >= 50 ? 'var(--amarillo)' : 'var(--rojo)'; el.style.color = el.style.borderColor; const msgs = { 80: '🎉 Excelente puntuación SEO', 60: '👍 Buen SEO', 40: '⚠️ SEO básico', 0: '❌ SEO incompleto' }; const th = Object.keys(msgs).map(Number).sort((a, b) => b - a).find(t => s >= t); tx.textContent = msgs[th]; }
+async function saveSEO() { Object.assign(SEO, { title: document.getElementById('seo-title').value, desc: document.getElementById('seo-desc').value, canonical: document.getElementById('seo-canonical').value, robots: document.getElementById('seo-robots').value, ogTitle: document.getElementById('seo-og-title').value, ogDesc: document.getElementById('seo-og-desc').value, ogImg: document.getElementById('seo-og-img').value, twCard: document.getElementById('seo-tw-card').value, gsc: document.getElementById('seo-gsc').value, ga: document.getElementById('seo-ga').value, gtm: document.getElementById('seo-gtm').value, siteUrl: document.getElementById('seo-siteurl').value, freq: document.getElementById('seo-freq').value, extraUrls: document.getElementById('seo-extra-urls').value, schemaName: document.getElementById('sch-name').value, schemaTel: document.getElementById('sch-tel').value, schemaAddr: document.getElementById('sch-addr').value, schemaPrice: document.getElementById('sch-price').value, schemaRating: document.getElementById('sch-rating').value }); applySEOMeta(); updateSeoScore(); await sbSaveSEO(); admToastFn('☁️ SEO guardado en Supabase'); }
+function applySEOMeta() { document.getElementById('pageTitle').textContent = SEO.title; document.getElementById('metaDesc').setAttribute('content', SEO.desc); document.getElementById('metaKw').setAttribute('content', SEO.keywords.join(',')); document.getElementById('metaRobots').setAttribute('content', SEO.robots); document.getElementById('ogTitle').setAttribute('content', SEO.ogTitle); document.getElementById('ogDesc').setAttribute('content', SEO.ogDesc); if (SEO.ogImg) document.getElementById('ogImg').setAttribute('content', SEO.ogImg); if (SEO.canonical) document.getElementById('canonical').setAttribute('href', SEO.canonical); }
+function genSitemap() { const base = (document.getElementById('seo-siteurl').value.trim() || 'https://tudominio.com').replace(/\/$/, ''); const freq = document.getElementById('seo-freq').value; const extras = document.getElementById('seo-extra-urls').value.split('\n').filter(u => u.trim()); const today = new Date().toISOString().split('T')[0]; const pages = ['/', ...extras.map(u => { const t = u.trim(); return t.startsWith('/') || t.startsWith('http') ? t : '/' + t; })]; let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`; pages.forEach(p => { const loc = p.startsWith('http') ? p : base + p; xml += `  <url>\n    <loc>${esc(loc)}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${freq}</changefreq>\n    <priority>${p === '/' ? '1.0' : '0.8'}</priority>\n  </url>\n`; }); xml += `</urlset>`; document.getElementById('sitemapOut').textContent = xml; document.getElementById('sitemapWrap').style.display = 'block'; admToastFn('🗺 Sitemap generado'); }
+function copySitemap() { navigator.clipboard.writeText(document.getElementById('sitemapOut').textContent).then(() => admToastFn('📋 Copiado')); }
+function dlSitemap() { const b = new Blob([document.getElementById('sitemapOut').textContent], { type: 'application/xml' }); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'sitemap.xml'; a.click(); }
+function genSchema() { const s = { "@context": "https://schema.org", "@type": "Restaurant", name: document.getElementById('sch-name').value, telephone: document.getElementById('sch-tel').value, address: { "@type": "PostalAddress", streetAddress: document.getElementById('sch-addr').value, addressLocality: "Coyoacán", addressRegion: "CDMX", postalCode: "04630", addressCountry: "MX" }, servesCuisine: ["Burgers", "Fast Food"], priceRange: document.getElementById('sch-price').value, aggregateRating: { "@type": "AggregateRating", ratingValue: document.getElementById('sch-rating').value, bestRating: "5", ratingCount: "127" }, openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "13:00", closes: "22:00" }, { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday", "Sunday"], opens: "12:00", closes: "23:00" }] }; document.getElementById('schemaOut').textContent = `<script type="application/ld+json">\n${JSON.stringify(s, null, 2)}\n<\/script>`; document.getElementById('schemaWrap').style.display = 'block'; admToastFn('⚡ Schema generado'); }
+function copySchema() { navigator.clipboard.writeText(document.getElementById('schemaOut').textContent).then(() => admToastFn('📋 Copiado')); }
+
+/* ═══════════════════════════════════════════════════════════
+   SITE PRODUCTS
+   ═══════════════════════════════════════════════════════════ */
+let currentCat = 'all';
+function renderProducts(cat) {
+  currentCat = cat || 'all';
+  const g = document.getElementById('productsGrid');
+  const list = currentCat === 'all' ? products.filter(p => p.active) : products.filter(p => p.cat === currentCat && p.active);
+  if (!list.length) { g.innerHTML = `<p style="color:rgba(245,240,225,.35);text-align:center;padding:48px;grid-column:1/-1">Sin platillos en esta categoría</p>`; return; }
+  g.innerHTML = list.map(p => {
+    const badge = p.badge ? `<div class="card-badge">${esc(p.badge)}</div>` : '';
+    const img = p.img ? `<img src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy"/>` : esc(p.emoji || '🍔');
+    return `<article class="card">${badge}<div class="card-img">${img}</div><div class="card-body"><h3 class="card-name">${esc(p.name)}</h3><p class="card-desc">${esc(p.description || '')}</p><div class="card-footer"><span class="card-price">$${p.price}</span><button class="btn-add" data-pid="${esc(p.id)}">+</button></div></div></article>`;
+  }).join('');
+}
+function filterCat(cat, el) { document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active')); el.classList.add('active'); renderProducts(cat); }
+
+/* ═══════════════════════════════════════════════════════════
+   CART
+   ═══════════════════════════════════════════════════════════ */
+let cart = [], delivMode = 'domicilio', chkVis = false;
+function addToCart(p) { const ex = cart.find(c => c.id === p.id); if (ex) { (ex.qty = (ex.qty || 0) + 1); } else cart.push({ ...p, qty: 1 }); updateCartUI(); showToastFn('✅ ' + p.name + ' agregado'); }
+function removeFromCart(id) { const ex = cart.find(c => c.id === id); if (ex) { ex.qty = (ex.qty || 1) - 1; if (ex.qty <= 0) cart = cart.filter(c => c.id !== id); } updateCartUI(); }
+function updateCartUI() {
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  document.getElementById('cartCount').textContent = count;
+  document.getElementById('cartTotal').textContent = '$' + total;
+  const body = document.getElementById('drawerBody');
+  if (!cart.length) { body.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Tu pedido está vacío.<br>¡Añade algo del terror!</p></div>`; document.getElementById('delivOpts').classList.remove('show'); document.getElementById('btnDatos').style.display = 'none'; document.getElementById('btnMP').style.display = 'none'; document.getElementById('btnSend').style.display = 'none'; document.getElementById('chkForm').classList.remove('show'); chkVis = false; }
+  else { body.innerHTML = cart.map(i => `<div class="cart-item"><div class="ci-img">${i.img ? `<img src="${esc(i.img)}" alt="${esc(i.name)}"/>` : esc(i.emoji)}</div><div class="ci-info"><div class="ci-name">${esc(i.name)}</div><div class="ci-price">$${i.price * i.qty}</div><div class="ci-qty"><button class="qty-btn" data-pid="${esc(i.id)}" data-action="remove">−</button><span class="qty-n">${i.qty}</span><button class="qty-btn" data-pid="${esc(i.id)}" data-action="add">+</button></div></div></div>`).join(''); document.getElementById('delivOpts').classList.add('show'); document.getElementById('btnDatos').style.display = 'block'; document.getElementById('btnMP').style.display = 'block'; document.getElementById('btnSend').style.display = 'block'; }
+}
+function setDel(m) {
+  delivMode = m;
+  document.getElementById('optDom').classList.toggle('active', m === 'domicilio');
+  document.getElementById('optRec').classList.toggle('active', m === 'recoger');
+  document.getElementById('dirGroup').style.display = m === 'recoger' ? 'none' : 'block';
+  document.getElementById('btnGps').style.display = m === 'recoger' ? 'none' : 'block';
+  if (m === 'recoger') {
+    document.getElementById('chkWarn').classList.remove('show');
+    document.getElementById('chkDist').classList.remove('show');
+  } else {
+    liveCheckCol();
+  }
+}
+function liveCheckCol() {
+  const raw = document.getElementById('cfColonia').value.trim();
+  const warn = document.getElementById('chkWarn');
+  const distEl = document.getElementById('chkDist');
+  if (!raw || delivMode === 'recoger') {
+    warn.classList.remove('show');
+    if (distEl) distEl.classList.remove('show');
+    return;
+  }
+  const v = raw.toLowerCase().replace(/[^a-z0-9áéíóúüñ\s]/g,'');
+  const cp = raw.replace(/[^0-9]/g,'').replace(/^0+/,'');
+  const match = COLONIAS.find(c => c.name.toLowerCase().includes(v) || c.cp.some(p => p === cp));
+  const found = !!match;
+  warn.classList.toggle('show', !found && v.length > 3);
+  if (found && distEl) {
+    const d = distFromOrigin(match.lat, match.lng);
+    distEl.innerHTML = '📍 ' + match.name + ' · ' + formatDist(d) + ' del origen';
+    distEl.classList.add('show');
+  } else if (distEl) { distEl.classList.remove('show'); }
+}
+async function useGpsLocation() {
+  const btn = document.getElementById('btnGps');
+  btn.disabled = true; btn.textContent = '📍 Obteniendo ubicación…';
+  try {
+    const pos = await getLocation();
+    const dist = Math.round(distFromOrigin(pos.lat, pos.lng));
+    const near = nearestColonia(pos.lat, pos.lng);
+    if (dist <= COV_RADIO) {
+      document.getElementById('cfColonia').value = near.colonia.name;
+      document.getElementById('chkWarn').classList.remove('show');
+      const dEl = document.getElementById('chkDist');
+      dEl.innerHTML = '📍 ' + near.colonia.name + ' · ' + formatDist(dist) + ' del origen ✅';
+      dEl.classList.add('show');
+      showToastFn('✅ ' + formatDist(dist) + ' — estás en cobertura');
+    } else {
+      document.getElementById('cfColonia').value = near.colonia ? near.colonia.name : '';
+      document.getElementById('chkWarn').classList.add('show');
+      document.getElementById('chkDist').classList.remove('show');
+      showToastFn('❌ Estás a ' + formatDist(dist) + ' del origen (máx. ' + formatDist(COV_RADIO) + ')');
+    }
+  } catch (e) {
+    if (e.code === 1) showToastFn('⚠️ Permiso de ubicación denegado');
+    else showToastFn('⚠️ No se pudo obtener ubicación: ' + (e.message || '').substring(0, 40));
+  }
+  btn.disabled = false; btn.textContent = '📍 Usar mi ubicación actual';
+}
+function toggleChk() { chkVis = !chkVis; document.getElementById('chkForm').classList.toggle('show', chkVis); document.getElementById('btnDatos').textContent = chkVis ? '✕ Ocultar datos' : '📋 Mis datos de entrega'; }
+function sendOrder() {
+  if (!USER_SESSION) { openUserPanel('login'); showToastFn('🔑 Inicia sesión o regístrate para pedir'); return; }
+  if (!chkVis) { toggleChk(); showToastFn('📋 Llena tus datos primero'); return; }
+  const nombre = document.getElementById('cfNombre').value.trim(); const tel = document.getElementById('cfTel').value.trim(); const colonia = document.getElementById('cfColonia').value.trim(); const dir = document.getElementById('cfDir').value.trim(); const notas = document.getElementById('cfNotas').value.trim();
+  if (!nombre || !tel) { showToastFn('⚠️ Nombre y teléfono requeridos'); return; }
+  if (delivMode === 'domicilio') { if (!colonia) { showToastFn('⚠️ Ingresa tu colonia'); return; } const cNorm = colonia.toLowerCase().replace(/[^a-z0-9áéíóúüñ\s]/g,'').trim(); const inZ = COLONIAS.some(c => c.name.toLowerCase().includes(cNorm) || c.cp.some(cp => cp === colonia.replace(/[^0-9]/g,'').replace(/^0+/,''))); if (!inZ) { document.getElementById('chkWarn').classList.add('show'); showToastFn('❌ Colonia fuera de cobertura'); return; } }
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  let msg = `🦷 *THE MONSTER – PEDIDO* 🦷\n\n👤 *Cliente:* ${nombre}\n📞 *Tel:* ${tel}\n🚚 *Entrega:* ${delivMode === 'domicilio' ? 'A domicilio' : 'Recoger en sitio'}\n`;
+  if (delivMode === 'domicilio') msg += `📍 *Dirección:* ${dir || '-'}, ${colonia}\n`;
+  msg += `\n🍔 *PEDIDO:*\n`; cart.forEach(i => { msg += `• ${i.qty}x ${i.name} — $${i.price * i.qty}\n`; });
+  msg += `\n💰 *TOTAL: $${total} MXN*`; if (notas) msg += `\n📝 *Notas:* ${notas}`; msg += `\n\n¡Gracias por elegir The Monster! 🧟`;
+  window.location.href = `https://wa.me/${CFG.wa}?text=${encodeURIComponent(msg)}`; showToastFn('✅ Redirigiendo a WhatsApp…'); cart = []; updateCartUI(); closeCart();
+}
+
+async function payWithMP() {
+  if (!USER_SESSION) { openUserPanel('login'); showToastFn('🔑 Inicia sesión o regístrate para pedir'); return; }
+  if (!chkVis) { toggleChk(); showToastFn('📋 Llena tus datos primero'); return; }
+  const nombre = document.getElementById('cfNombre').value.trim();
+  const tel = document.getElementById('cfTel').value.trim();
+  const colonia = document.getElementById('cfColonia').value.trim();
+  const dir = document.getElementById('cfDir').value.trim();
+  const notas = document.getElementById('cfNotas').value.trim();
+  if (!nombre || !tel) { showToastFn('⚠️ Nombre y teléfono requeridos'); return; }
+  if (delivMode === 'domicilio') {
+    if (!colonia) { showToastFn('⚠️ Ingresa tu colonia'); return; }
+    const cNorm = colonia.toLowerCase().replace(/[^a-z0-9áéíóúüñ\s]/g,'').trim();
+    const inZ = COLONIAS.some(c => c.name.toLowerCase().includes(cNorm) || c.cp.some(cp => cp === colonia.replace(/[^0-9]/g,'').replace(/^0+/,'')));
+    if (!inZ) { document.getElementById('chkWarn').classList.add('show'); showToastFn('❌ Colonia fuera de cobertura'); return; }
+  }
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  if (cart.length === 0) { showToastFn('🛒 Carrito vacío'); return; }
+  const btn = document.getElementById('btnMP');
+  btn.disabled = true; btn.textContent = '⏳ Procesando…';
+  try {
+    const itemsMP = cart.map(i => ({ name: i.name, qty: i.qty, price: i.price }));
+    const customer = { name: nombre, phone: tel, email: USER_SESSION?.email || '' };
+    const delivery = { mode: delivMode, colonia, direction: dir, notes: notas };
+    const r = await fetch('/.netlify/functions/create-preference', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: itemsMP, customer, delivery })
+    });
+    if (!r.ok) { const e = await r.json(); throw new Error(e.error || 'Error al crear pago'); }
+    const data = await r.json();
+    localStorage.setItem('last_order', JSON.stringify({ order_number: data.order_number, total, items: cart, customer, delivery }));
+    cart = []; updateCartUI(); closeCart();
+    window.location.href = data.init_point;
+  } catch (e) {
+    showToastFn('❌ ' + e.message.substring(0, 80));
+    btn.disabled = false; btn.textContent = '💳 Pagar con Mercado Pago';
+  }
+}
+
+function showOrderConfirm(orderNumber, status) {
+  const p = document.getElementById('orderConfirm');
+  const icon = document.getElementById('ocIcon');
+  const title = document.getElementById('ocTitle');
+  const sub = document.getElementById('ocSub');
+  const num = document.getElementById('ocNumber');
+  const detail = document.getElementById('ocDetail');
+  const statusEl = document.getElementById('ocStatus');
+  const waBtn = document.getElementById('ocWaBtn');
+  num.textContent = '#' + orderNumber;
+  if (status === 'paid') {
+    icon.textContent = '✅'; title.textContent = '¡Pago Confirmado!';
+    sub.textContent = 'Tu pedido fue pagado y está en proceso';
+    statusEl.textContent = '✅ PAGADO — Te enviaremos notificación por WhatsApp';
+    statusEl.style.color = 'var(--verde)';
+  } else if (status === 'pending') {
+    icon.textContent = '⏳'; title.textContent = '¡Pedido Registrado!';
+    sub.textContent = 'Estamos esperando la confirmación del pago';
+    statusEl.textContent = '⏳ Pago pendiente — Se actualizará automáticamente';
+    statusEl.style.color = 'var(--amarillo)';
+  } else {
+    icon.textContent = '❌'; title.textContent = 'Pago no completado';
+    sub.textContent = 'El pago no se pudo completar. Intenta de nuevo.';
+    statusEl.textContent = '❌ Pago rechazado o cancelado';
+    statusEl.style.color = 'var(--rojo)';
+  }
+  detail.innerHTML = `Pedido #${orderNumber}<br>Monto: $${(JSON.parse(localStorage.getItem('last_order')||'{}').total || 0).toFixed(2)} MXN`;
+  const lo = JSON.parse(localStorage.getItem('last_order') || '{}');
+  if (lo.customer && lo.delivery) {
+    const msg = `🧾 *Pedido #${orderNumber}*\n👤 ${lo.customer.name}\n📞 ${lo.customer.phone}\n🚚 ${lo.delivery.mode === 'domicilio' ? lo.delivery.colonia + ', ' + (lo.delivery.direction||'') : 'Recoger en local'}`;
+    waBtn.href = `https://wa.me/${CFG.wa}?text=${encodeURIComponent(msg)}`;
+  } else {
+    waBtn.href = `https://wa.me/${CFG.wa}?text=${encodeURIComponent('🧾 Pedido #' + orderNumber)}`;
+  }
+  p.classList.add('open');
+}
+
+function closeOrderConfirm() {
+  document.getElementById('orderConfirm').classList.remove('open');
+  localStorage.removeItem('last_order');
+}
+
+function handleOrderReturn() {
+  const params = new URLSearchParams(window.location.search);
+  const order = params.get('order');
+  if (!order || order === 'fail' || order === 'pending') {
+    if (order === 'fail') showToastFn('❌ Pago cancelado o rechazado');
+    else if (order === 'pending') showToastFn('⏳ Pago pendiente — recibirás notificación');
+    return;
+  }
+  const num = parseInt(order);
+  if (!num) return;
+  try {
+    const lo = JSON.parse(localStorage.getItem('last_order') || '{}');
+    if (lo.order_number === num) showOrderConfirm(num, 'pending');
+  } catch(e) {}
+  const cleanUrl = window.location.origin + window.location.pathname;
+  window.history.replaceState({}, document.title, cleanUrl);
+  setTimeout(async () => {
+    if (!num) return;
+    try {
+      const r = await fetch(`https://otyswvsghievcnacgzit.supabase.co/rest/v1/orders?order_number=eq.${num}&select=payment_status`, {
+        headers: { 'apikey': SB_ANON, 'Authorization': 'Bearer ' + SB_ANON }
+      });
+      if (r.ok) {
+        const rows = await r.json();
+        if (rows && rows.length && rows[0].payment_status === 'paid') {
+          showOrderConfirm(num, 'paid');
+        }
+      }
+    } catch(e) {}
+  }, 2000);
+}
+function openCart() { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+
+/* COBERTURA */
+function checkCob() { const v = document.getElementById('cobInput').value.trim().toLowerCase(); const res = document.getElementById('cobResult'); if (!v) { showToastFn('⚠️ Ingresa una colonia o C.P.'); return; } const found = COLONIAS.find(c => c.name.toLowerCase().includes(v) || c.cp.some(cp => cp === v)); if (found) { const d = distFromOrigin(found.lat, found.lng); const ok = d <= COV_RADIO; res.className = 'cob-result ' + (ok ? 'dentro' : 'fuera'); res.innerHTML = `<span style="font-size:1.3rem">${ok ? '✅' : '⚠️'}</span><div><strong>${ok ? '¡Dentro de Cobertura!' : 'Fuera de Cobertura'}</strong><br><span style="font-size:.78rem;font-weight:400">${found.name} · ${formatDist(d)} del origen · ${found.nota || ''}</span></div>`; } else { res.className = 'cob-result fuera'; res.innerHTML = `<span style="font-size:1.3rem">❌</span><div><strong>Fuera de Cobertura</strong><br><span style="font-size:.78rem;font-weight:400">Recoge en Adolfo Ruiz Cortines, Coyoacán</span></div>`; } }
+function renderColonias() { const el = document.getElementById('coloniasList'); el.innerHTML = COLONIAS.map(c => { const d = distFromOrigin(c.lat, c.lng); return `<span class="col-tag ${d <= COV_RADIO ? '' : 'col-fuera'}">${esc(c.name)} · ${formatDist(d)}</span>`; }).join(''); }
+
+/* NAV */
+function toggleMobNav() { const m = document.getElementById('mobileMenu'); const t = document.getElementById('navToggle'); const o = !m.classList.contains('open'); m.classList.toggle('open', o); t.setAttribute('aria-expanded', o); document.body.style.overflow = o ? 'hidden' : ''; }
+function closeMobNav() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('navToggle').setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; }
+
+/* LOADING */
+function setLoading(btnId, loading, text) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  btn.disabled = loading;
+  btn.style.opacity = loading ? '.6' : '1';
+  btn.style.pointerEvents = loading ? 'none' : 'auto';
+  if (text !== undefined) btn.textContent = text;
+}
+
+/* AUTO-COMPLETE colonia from CP */
+function autoUbic(input) {
+  const v = input.value.trim();
+  const sid = input.id + 'Suggest';
+  const suggest = document.getElementById(sid);
+  if (!suggest) return;
+  if (v.length < 2) { suggest.classList.remove('open'); suggest.innerHTML = ''; return; }
+  const cp = v.replace(/[^0-9]/g, '');
+  const name = v.toLowerCase().replace(/[^a-záéíóúüñ\s]/g, '').trim();
+  let matches = [];
+  if (cp.length >= 4) matches = COLONIAS.filter(c => c.cp.some(p => p === cp));
+  else if (name.length >= 3) matches = COLONIAS.filter(c => c.name.toLowerCase().includes(name));
+  if (matches.length === 1 && cp.length === 5 && matches[0].cp.includes(cp)) {
+    input.value = matches[0].name;
+    suggest.classList.remove('open'); suggest.innerHTML = '';
+    return;
+  }
+  if (matches.length > 0 && matches.length <= 8) {
+    suggest.innerHTML = matches.map(c => `<div class="ubic-opt" data-ubval="${esc(c.name)}">${esc(c.name)} <small style="opacity:.5">${c.cp.join(', ')}</small></div>`).join('');
+    suggest.classList.add('open');
+  } else { suggest.classList.remove('open'); suggest.innerHTML = ''; }
+}
+document.addEventListener('click', function(e) {
+  const opt = e.target.closest('.ubic-opt');
+  if (!opt) return;
+  const input = opt.closest('.l-field')?.querySelector('.l-input');
+  if (input) { input.value = opt.dataset.ubval; }
+  const suggest = opt.closest('.ubic-suggest');
+  if (suggest) { suggest.classList.remove('open'); suggest.innerHTML = ''; }
+});
+
+/* TOASTS */
+let toastT, admT;
+function showToastFn(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2800); }
+function admToastFn(msg) { const t = document.getElementById('admToast'); t.textContent = msg; t.classList.add('show'); clearTimeout(admT); admT = setTimeout(() => t.classList.remove('show'), 3000); }
+
+/* ESC */
+document.addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (document.getElementById('userPanel').classList.contains('open')) closeUserPanel(); else if (document.getElementById('prodModal').classList.contains('open')) closeProdModal(); else if (document.getElementById('chgPwModal').classList.contains('open')) document.getElementById('chgPwModal').classList.remove('open'); else if (document.getElementById('loginModal').classList.contains('open')) closeLogin(); else if (document.getElementById('adminPanel').classList.contains('open')) closeAdmin(); else if (document.getElementById('cartDrawer').classList.contains('open')) closeCart(); else if (document.getElementById('diagPanel').classList.contains('open')) document.getElementById('diagPanel').classList.remove('open'); else closeMobNav(); });
+
+/* EVENT DELEGATION — products grid + cart */
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('[data-pid]');
+  if (!btn) return;
+  const pid = btn.dataset.pid;
+  const action = btn.dataset.action || 'add';
+  if (btn.closest('#productsGrid')) {
+    const p = products.find(pr => pr.id === pid);
+    if (p) addToCart({ id: p.id, name: p.name, price: p.price, emoji: p.emoji || '🍔', img: p.img || null, cat: p.cat });
+  } else if (btn.closest('#drawerBody')) {
+    if (action === 'remove') removeFromCart(pid);
+    else {
+      const ci = cart.find(ci => ci.id === pid);
+      if (ci) addToCart({ id: ci.id, name: ci.name, price: ci.price, emoji: ci.emoji || '🍔', img: ci.img || null, cat: ci.cat });
+    }
+  }
+});
+
+/* APPLY ALL */
+function applyAll() { applyOfertas(); applyNav(); applyIdentidad(); applyRedes(); applyConfig(); applyHero(); applySEOMeta(); document.documentElement.style.setProperty('--rojo', CFG.colors.rojo); document.documentElement.style.setProperty('--amarillo', CFG.colors.amarillo); document.documentElement.style.setProperty('--verde', CFG.colors.verde); }
+
+/* ═══════════════════════════════════════════════════════════
+   USER AUTH — Regular users (app_users table)
+   ═══════════════════════════════════════════════════════════ */
+let USER_SESSION = null;
+const USER_KEY = 'monster_user';
+
+function loadUserSession() {
+  try {
+    const d = JSON.parse(localStorage.getItem(USER_KEY));
+    if (d && d.email && d.exp && Date.now() < d.exp) { USER_SESSION = d; return true; }
+  } catch (_) {}
+  localStorage.removeItem(USER_KEY); return false;
+}
+function saveUserSession(d) {
+  USER_SESSION = { ...d, exp: Date.now() + 7 * 24 * 60 * 60 * 1000 };
+  localStorage.setItem(USER_KEY, JSON.stringify(USER_SESSION));
+}
+function clearUserSession() { USER_SESSION = null; localStorage.removeItem(USER_KEY); }
+
+function updateUserUI() {
+  const mob = document.getElementById('mobUserBtn');
+  if (USER_SESSION) {
+    if (mob) mob.textContent = '👤 ' + USER_SESSION.nombres + ' · Cerrar sesión';
+  } else {
+    if (mob) mob.textContent = '👤 Iniciar sesión';
+  }
+}
+
+function openUserPanel(tab) {
+  document.getElementById('userPanel').classList.add('open');
+  ['ulEmail','ulPass','urEmail','urPass','urNombres','urApellidos','urTel','urDir','urUbic','urcEmail','urcCode','urcNewPass'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  ['ulMsg','urMsg','urcMsg','peMsg'].forEach(id => { const el = document.getElementById(id); if (el) { el.className = 'user-msg'; el.textContent = ''; } });
+  document.getElementById('resetCodeSection').style.display = 'none';
+  const firstTab = document.querySelector('#userPanel .user-tab');
+  const tabs = document.querySelectorAll('#userPanel .user-tab');
+  if (tab === 'register') switchUserTab('register', tabs.length > 1 ? tabs[1] : firstTab);
+  else if (tab === 'recover') switchUserTab('recover', null);
+  else switchUserTab('login', firstTab);
+}
+function closeUserPanel() { document.getElementById('userPanel').classList.remove('open'); }
+
+function switchUserTab(tab, el) {
+  const map = { login: 'upLogin', register: 'upRegister', recover: 'upRecover', profile: 'upProfile' };
+  document.querySelectorAll('#userPanel .user-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#userPanel .user-tab').forEach(t => t.classList.remove('active'));
+  const pane = document.getElementById(map[tab]);
+  if (pane) pane.classList.add('active');
+  if (el) el.classList.add('active');
+  else if (tab !== 'profile') {
+    const tabs = document.querySelectorAll('#userPanel .user-tab');
+    const idx = tab === 'register' ? 1 : 0;
+    if (tabs[idx]) tabs[idx].classList.add('active');
+  }
+}
+
+async function userRegister() {
+  const email = document.getElementById('urEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('urPass').value;
+  const nombres = document.getElementById('urNombres').value.trim();
+  const apellidos = document.getElementById('urApellidos').value.trim();
+  const tel = document.getElementById('urTel').value.trim();
+  const dir = document.getElementById('urDir').value.trim();
+  const ubic = document.getElementById('urUbic').value.trim();
+  const msg = document.getElementById('urMsg');
+  if (!email || !pass || !nombres || !apellidos) { msg.className = 'user-msg err'; msg.textContent = '⚠️ Completa los campos obligatorios (*)'; return; }
+  if (pass.length < 6) { msg.className = 'user-msg err'; msg.textContent = '⚠️ Mínimo 6 caracteres'; return; }
+  try {
+    const ex = await SB.selectWhere('app_users', 'email', email, 'id');
+    if (ex && ex.length) { msg.className = 'user-msg err'; msg.textContent = '⚠️ Este correo ya está registrado'; return; }
+    await SB.upsert('app_users', [{ email, pw_hash: hs(pass), nombres, apellidos, telefono: tel || '', direccion: dir || '', ubicacion_entrega: ubic || '' }]);
+    msg.className = 'user-msg ok'; msg.textContent = '✅ Cuenta creada. Ahora inicia sesión.';
+    setTimeout(() => switchUserTab('login', document.querySelector('#userPanel .user-tab')), 1500);
+  } catch (e) { msg.className = 'user-msg err'; msg.textContent = '❌ ' + e.message.substring(0, 60); }
+}
+
+async function userLogin() {
+  const email = document.getElementById('ulEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('ulPass').value;
+  const msg = document.getElementById('ulMsg');
+  if (!email || !pass) { msg.className = 'user-msg err'; msg.textContent = '⚠️ Ingresa correo y contraseña'; return; }
+  try {
+    const rows = await SB.selectWhere('app_users', 'email', email, 'id,email,nombres,apellidos,telefono,direccion,ubicacion_entrega,pw_hash');
+    if (!rows || !rows.length) { msg.className = 'user-msg err'; msg.textContent = '❌ Correo no registrado'; return; }
+    const u = rows[0];
+    if (u.pw_hash !== hs(pass)) { msg.className = 'user-msg err'; msg.textContent = '❌ Contraseña incorrecta'; return; }
+    saveUserSession({ id: u.id, email: u.email, nombres: u.nombres, apellidos: u.apellidos, telefono: u.telefono, direccion: u.direccion, ubicacion_entrega: u.ubicacion_entrega });
+    closeUserPanel();
+    updateUserUI();
+    autoFillCheckout();
+    showToastFn('✅ Bienvenido, ' + u.nombres);
+  } catch (e) { msg.className = 'user-msg err'; msg.textContent = '❌ ' + e.message.substring(0, 60); }
+}
+
+function userLogout() { clearUserSession(); updateUserUI(); showToastFn('👋 Sesión cerrada'); }
+
+async function userRequestReset() {
+  const email = document.getElementById('urcEmail').value.trim().toLowerCase();
+  const msg = document.getElementById('urcMsg');
+  if (!email) { msg.className = 'user-msg err'; msg.textContent = '⚠️ Ingresa tu correo'; return; }
+  try {
+    const rows = await SB.selectWhere('app_users', 'email', email, 'id');
+    if (!rows || !rows.length) { msg.className = 'user-msg err'; msg.textContent = '❌ Correo no registrado'; return; }
+    const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+    const exp = Date.now() + 30 * 60 * 1000;
+    await SB.update('app_users', 'email', email, { reset_code: code, reset_exp: exp });
+    msg.className = 'user-msg ok';
+    msg.innerHTML = '✅ Tu código de recuperación: <strong>' + code + '</strong><br><span style="font-size:.7rem">(válido 30 min — guarda este código)</span>';
+    document.getElementById('resetCodeSection').style.display = 'block';
+  } catch (e) { msg.className = 'user-msg err'; msg.textContent = '❌ ' + e.message.substring(0, 60); }
+}
+
+async function userConfirmReset() {
+  const email = document.getElementById('urcEmail').value.trim().toLowerCase();
+  const code = document.getElementById('urcCode').value.trim().toUpperCase();
+  const np = document.getElementById('urcNewPass').value;
+  const msg = document.getElementById('urcMsg');
+  if (!code || !np) { msg.className = 'user-msg err'; msg.textContent = '⚠️ Completa todos los campos'; return; }
+  if (np.length < 6) { msg.className = 'user-msg err'; msg.textContent = '⚠️ Mínimo 6 caracteres'; return; }
+  try {
+    const rows = await SB.selectWhere('app_users', 'email', email, 'id,reset_code,reset_exp');
+    if (!rows || !rows.length) { msg.className = 'user-msg err'; msg.textContent = '❌ Error de verificación'; return; }
+    const u = rows[0];
+    if (u.reset_code !== code) { msg.className = 'user-msg err'; msg.textContent = '❌ Código incorrecto'; return; }
+    if (Date.now() > u.reset_exp) { msg.className = 'user-msg err'; msg.textContent = '❌ Código expirado'; return; }
+    await SB.update('app_users', 'email', email, { pw_hash: hs(np), reset_code: null, reset_exp: null });
+    msg.className = 'user-msg ok'; msg.textContent = '✅ Contraseña actualizada. Ahora inicia sesión.';
+    document.getElementById('resetCodeSection').style.display = 'none';
+    setTimeout(() => switchUserTab('login', document.querySelector('#userPanel .user-tab')), 2000);
+  } catch (e) { msg.className = 'user-msg err'; msg.textContent = '❌ ' + e.message.substring(0, 60); }
+}
+
+function autoFillCheckout() {
+  if (!USER_SESSION) return;
+  const fn = document.getElementById('cfNombre'); if (fn && !fn.value) fn.value = USER_SESSION.nombres + ' ' + USER_SESSION.apellidos;
+  const ft = document.getElementById('cfTel'); if (ft && !ft.value) ft.value = USER_SESSION.telefono || '';
+  const fd = document.getElementById('cfDir'); if (fd && !fd.value) fd.value = USER_SESSION.direccion || '';
+  const fc = document.getElementById('cfColonia'); if (fc && !fc.value) fc.value = USER_SESSION.ubicacion_entrega || '';
+}
+
+/* PROFILE EDIT */
+function openProfileEdit() {
+  openUserPanel();
+  document.getElementById('upProfile').classList.add('active');
+  document.getElementById('upLogin').classList.remove('active');
+  document.getElementById('upRegister').classList.remove('active');
+  document.querySelectorAll('#userPanel .user-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('peNombres').value = USER_SESSION?.nombres || '';
+  document.getElementById('peApellidos').value = USER_SESSION?.apellidos || '';
+  document.getElementById('peTel').value = USER_SESSION?.telefono || '';
+  document.getElementById('peDir').value = USER_SESSION?.direccion || '';
+  document.getElementById('peUbic').value = USER_SESSION?.ubicacion_entrega || '';
+  document.getElementById('peMsg').className = 'user-msg';
+  document.getElementById('peMsg').textContent = '';
+}
+
+async function saveProfileEdit() {
+  if (!USER_SESSION) return;
+  const nombres = document.getElementById('peNombres').value.trim();
+  const apellidos = document.getElementById('peApellidos').value.trim();
+  const tel = document.getElementById('peTel').value.trim();
+  const dir = document.getElementById('peDir').value.trim();
+  const ubic = document.getElementById('peUbic').value.trim();
+  const msg = document.getElementById('peMsg');
+  if (!nombres || !apellidos) { msg.className = 'user-msg err'; msg.textContent = '⚠️ Nombres y apellidos requeridos'; return; }
+  try {
+    await SB.update('app_users', 'email', USER_SESSION.email, { nombres, apellidos, telefono: tel || '', direccion: dir || '', ubicacion_entrega: ubic || '' });
+    USER_SESSION.nombres = nombres; USER_SESSION.apellidos = apellidos; USER_SESSION.telefono = tel;
+    USER_SESSION.direccion = dir; USER_SESSION.ubicacion_entrega = ubic;
+    saveUserSession(USER_SESSION);
+    updateUserUI();
+    msg.className = 'user-msg ok'; msg.textContent = '✅ Perfil actualizado';
+  } catch (e) { msg.className = 'user-msg err'; msg.textContent = '❌ ' + e.message.substring(0, 60); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════════════════════ */
+(async function init() {
+  spProgress(5, 'Conectando con Supabase…');
+  dbDots('sync');
+  diag('=== THE MONSTER INIT ===', 'ok');
+  diag('Conectando a: ' + SB_URL);
+
+  const ok = await sbLoadAll();
+  spProgress(100, ok ? '✅ Listo!' : '⚠️ Usando datos locales');
+  await new Promise(r => setTimeout(r, 350));
+
+  renderProducts('all');
+  renderColonias();
+  applyAll();
+  updateCartUI();
+  loadUserSession();
+  updateUserUI();
+  if (USER_SESSION) autoFillCheckout();
+  spHide();
+
+  if (!ok) {
+    diag('⚠️ Ejecuta el SQL del schema en Supabase Dashboard si las tablas no existen', 'warn');
+    admToastFn('⚠️ Sin conexión DB — usando datos locales');
+  }
+  handleOrderReturn();
+})();
+</script>
+</body>
+</html>
