@@ -1764,7 +1764,7 @@ async function payWithMP() {
     const itemsMP = cart.map(i => ({ name: i.name, qty: i.qty, price: i.price }));
     const customer = { name: nombre, phone: tel, email: USER_SESSION?.email || '' };
     const delivery = { mode: delivMode, colonia, direction: dir, notes: notas };
-    const r = await fetch('/.netlify/functions/create-preference', {
+    const r = await fetch('/api/create-preference', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ items: itemsMP, customer, delivery })
